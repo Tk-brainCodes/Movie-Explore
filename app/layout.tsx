@@ -1,10 +1,15 @@
 import "./globals.css";
 import { Montserrat } from "@next/font/google";
+import Sidenav from "./components/Sidenav";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+
+config.autoAddCss = false;
 
 const monstserrat = Montserrat({
   weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-monstserrat"
+  variable: "--font-monstserrat",
 });
 
 export default function RootLayout({
@@ -19,7 +24,10 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className={`${monstserrat.className}`}>{children}</body>
+      <body className={`${monstserrat.className} w-full flex`}>
+        <Sidenav />
+        {/* {children} */}
+      </body>
     </html>
   );
 }
