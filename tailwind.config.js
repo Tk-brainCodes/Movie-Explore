@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-rts = {
+module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -12,6 +12,9 @@ rts = {
     extend: {
       fontFamily: {
         monstserrat: ['var(--font-monstserrat)']
+      },
+      gridTemplateColumns: {
+        fluid: 'repeat(auto-fit,minmax(15rem,1fr))'
       }
     }
   },
