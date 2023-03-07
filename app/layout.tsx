@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Montserrat } from "@next/font/google";
 import Sidenav from "./components/Sidenav";
+import TopNav from "./components/Topnav";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 
@@ -24,9 +25,15 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className={`${monstserrat.className} w-full flex`}>
-        <Sidenav />
-        {/* {children} */}
+      <body className={`${monstserrat.className} w-full overflow-x-hidden`}>
+        <TopNav/>
+        <div className="grid">
+          <Sidenav />
+          <div className="px-8 py-4 mt-[5em] ml-[15em]">
+            {children}
+          </div>
+        </div>
+
       </body>
     </html>
   );
