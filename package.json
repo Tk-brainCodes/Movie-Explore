@@ -25,7 +25,6 @@
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-image-and-background-image-fade": "^1.0.8",
     "typescript": "4.9.5"
   },
   "devDependencies": {
