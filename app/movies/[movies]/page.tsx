@@ -9,6 +9,8 @@ export default async function MovieDetails({ params }: { params: string }) {
 
   const movie = res.data;
 
+  // https://www.imdb.com/title/${imdb_id}/?ref_=fn_al_tt_2
+
   return (
     <div>
       <h1>Movie Details</h1>
