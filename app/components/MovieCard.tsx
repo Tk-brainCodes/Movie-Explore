@@ -11,7 +11,7 @@ export default function MovieContainer({
 }) {
   return (
     <>
-      <div className="w-auto">
+      <div className='w-auto'>
         <h1 className='text-black  px-6 py-4 text-sm font-semibold'>{text}</h1>
         <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto flex-row overflow-x-auto space-x-8 scroll-smooth no-scrollbar h-[400px] w-[940px]'>
           {movie?.results?.map((movie: MovieDataProp) => (
@@ -20,6 +20,7 @@ export default function MovieContainer({
                 title={movie?.title as string}
                 movieId={movie?.id as number}
                 poster_path={movie?.poster_path as string}
+                backdrop_path={movie?.backdrop_path as string}
                 release_date={movie?.release_date as string}
                 key={movie?.id}
               />
