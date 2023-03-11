@@ -2,9 +2,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+interface ApiDataProp<T> {
+  page: number;
+  results: Array<T>;
+  genres: Array<T>;
+}
+
 const useFetch = (url: string) => {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const [apiData, setApiData] = useState<any[]>([]);
+  const [apiData, setApiData] = useState<ApiDataProp<any[]>>();
   const [serverError, setServerError] = useState(null);
 
   useEffect(() => {
