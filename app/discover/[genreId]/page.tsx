@@ -1,11 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import useFetch from "../../hooks/useFetch";
 
 const MovieDetails = ({ params }: { params: string }) => {
   const { genreId }: any = params;
-  const [getGenreMovies, setGetGenreMovies] = useState<any[]>([]);
   const { isLoading, apiData, serverError } = useFetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&with_genres=${genreId}`
   );
