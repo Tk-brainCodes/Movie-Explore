@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieContainer from "./components/MovieCard";
-import ShowingInTheater from "./components/ShowingTheatres";
+import ShowingInTheater from "./components/CustomMovieCard";
 
 const getData = async (fn: any, url: string, config: any) => {
   try {
@@ -18,7 +18,7 @@ const Home = () => {
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
   const [trendingMovies, setTrendingMovies] = useState<any[]>([]);
   const [nowShowing, setNowShowing] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(2);
 
   const myKey = process.env.API_KEY;
 
@@ -55,12 +55,15 @@ const Home = () => {
     localStorage.setItem("trending", JSON.stringify(trendingMovies));
   }, [nowShowing, popularMovies, trendingMovies]);
 
+  console.log({ showing: nowShowing });
+
   return (
     <main>
       <ShowingInTheater
         movies={nowShowing}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        title={"Showing in theatres"}
       />
       <MovieContainer text='Popular Movies' movie={popularMovies} />
       <MovieContainer text='Trending Movies' movie={trendingMovies} />
