@@ -1,8 +1,9 @@
 "use client";
 import { sidebar_routes } from "../routes/route";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 export default function Sidenav() {
   const router = useRouter();
@@ -15,27 +16,38 @@ export default function Sidenav() {
           <div key={route.id} className=' grid grid-cols-1'>
             <li className='font-black mt-4'>{route.name}</li>
             <li className='flex flex-col gap-3 text-sm'>
-              {route.paths.map((paths) => (
-                <button
-                  key={paths.id}
-                  className={`flex text-sm mt-2 items-center justify-start h-6 ${
-                    pathname === paths.url
-                      ? "text-orange-400 font-medium"
-                      : "text-slate-400"
-                  }`}
-                  onClick={() => router.push(`${paths.url}`)}
-                >
-                  {paths.title}
-                </button>
-              ))}
+              {route.paths.map(({ id, title, Icon, url }) => {
+                return (
+                  <button
+                    key={id}
+                    className={`flex text-sm mt-2 items-center text-center gap-3 justify-start hover:text-orange-400 transition ease-in-out h-6 ${
+                      pathname === url
+                        ? "text-orange-400 font-semibold"
+                        : "text-slate-400"
+                    }`}
+                    onClick={() => router.push(`${url}`)}
+                  >
+                    <span>{<Icon />}</span>
+                    {title}
+                  </button>
+                );
+              })}
             </li>
           </div>
         ))}
         <br />
-        <Link className='block text-sm mb-6 mt-2' href='/settings'>
+        <Link
+          className='flex gap-3 hover:text-orange-400 text-sm mb-6 mt-2 transition ease-in-out text-slate-400'
+          href='/settings'
+        >
+          <SettingsOutlinedIcon />
           Settings
         </Link>
-        <Link className='block text-sm bottom-0' href='/logout'>
+        <Link
+          className='flex gap-3 hover:text-orange-400 transition ease-in-out text-sm bottom-0 text-slate-400'
+          href='/'
+        >
+          <LogoutOutlinedIcon />
           Log out
         </Link>
       </ul>
