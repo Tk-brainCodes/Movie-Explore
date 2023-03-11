@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import useFetch from "@/app/hooks/useFetch";
-import Movies from '../movies/Movies'
+import Movies from "../movies/Movies";
 
 export default function ComingSoon() {
   const myKey = process.env.API_KEY;
@@ -41,6 +41,7 @@ export default function ComingSoon() {
               title={movie?.title as string}
               movieId={movie?.id as number}
               poster_path={movie?.poster_path as string}
+              backdrop_path={movie?.backdrop_path}
               release_date={movie?.release_date as string}
               key={movie?.id}
             />
