@@ -24,7 +24,7 @@ export default function Discover() {
         {apiData?.genres?.map((list: any) => (
           <div
             className='text-slate-400 hover:text-white transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300bg-gray-600 rounded-full'
-            onClick={() => router.push(`/discover/${list.id}`)}
+            onClick={() => router.push(`/discover/${list.name}/${list.id}`)}
           >
             <div className=' rounded-full cursor-pointer tracking-widest font-semibold text-xs flex px-6 py-6 h-[60px] bg-gray-800 items-center justify-between'>
               <h1>{list?.name}</h1>
