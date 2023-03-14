@@ -9,6 +9,8 @@ import {
 import { Anchor } from "@/app/components/Anchor";
 import { useRouter } from "next/navigation";
 import SimilarMovies from "@/app/components/SimilarMovies";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import imdb_logo from "../../../public/image/imdb_logo.png";
 import netflix_logo from "../../../public/image/netflix_logo.png";
 import no_image from "../../../public/image/no_image.jpg";
@@ -46,43 +48,43 @@ export default async function MovieDetails({ params }: { params: string }) {
         <div className='  px-4 py-4  w-[620px]'>
           <div className='flex text-center justify-between '>
             <div className='flex gap-5'>
-              <h2 className='text-xl items-center text-justify font-semibold text-slate-600'>
-                {movie.title}
+              <h2 className='tracking-tighter text-xl items-center text-justify font-semibold text-slate-600'>
+                {movie.title || <Skeleton />}
               </h2>
               <span className='px-2 flex h-fit text-justify justify-center py-1 text-xs bg-yellow-500 rounded text-white'>
-                {movie.status as number}
+                {(movie.status as number) || <Skeleton />}
               </span>
             </div>
             <h2 className='flex  flex-nowrap gap-1 font-normal'>
               <span className='text-cyan-600'>
-                {movieRatingToOneDecimalPlace}
+                {movieRatingToOneDecimalPlace || <Skeleton />}
               </span>
               / 10
             </h2>
           </div>
           <div className='flex text-center gap-2 flex-wrap text-slate-400 font-normal mt-2'>
-            {movie.adult === false && <h2>PG</h2>}{" "}
+            {(movie.adult === false && <h2>PG</h2>) || <Skeleton />}{" "}
             <IconPointFilled size={10} color='grey' className='mt-[6px]' />
-            <h2>{movie.runtime} min</h2>
+            <h2>{movie.runtime || <Skeleton />} min</h2>
             <IconPointFilled size={10} color='grey' className='mt-[6px]' />
             {movie?.genres.map((genre: any, index: any) => (
-              <h2 key={index}>{genre.name as string}</h2>
+              <h2 key={index}>{(genre.name as string) || <Skeleton />}</h2>
             ))}
           </div>
           <h3 className='text-slate-600 text-justify font-medium text-base mt-4 leading-6'>
-            {movie.overview as string}
+            {(movie.overview as string) || <Skeleton />}
           </h3>
           <div className='mt-3 grid grid-row-3 gap-2 divide-x'>
             <h2 className='flex gap-2'>
               <span className='text-slate-800 font-bold'>Release Date : </span>
               <span className='text-slate-400 font-normal'>
-                {movie.release_date}
+                {movie.release_date || <Skeleton />}
               </span>
             </h2>
             <h2 className='flex gap-2'>
               <span className='text-slate-800 font-bold'>Popularity :</span>{" "}
               <span className='text-slate-400 font-normal'>
-                {movie.popularity}
+                {movie.popularity || <Skeleton />}
               </span>
             </h2>
             {movie.budget === 0 ? (
@@ -91,7 +93,7 @@ export default async function MovieDetails({ params }: { params: string }) {
               <h2 className='flex gap-2 '>
                 <span className='text-slate-800 font-bold'>Budget :</span>{" "}
                 <span className='text-slate-400 font-normal'>
-                  {formatter.format(movie.budget)}
+                  {formatter.format(movie.budget) || <Skeleton />}
                 </span>
               </h2>
             )}
@@ -101,14 +103,14 @@ export default async function MovieDetails({ params }: { params: string }) {
               <h2 className='flex gap-2'>
                 <span className='text-slate-800 font-bold'>Box Office :</span>{" "}
                 <span className='text-slate-400 font-normal'>
-                  {formatter.format(movie?.revenue)}
+                  {formatter.format(movie?.revenue) || <Skeleton />}
                 </span>
               </h2>
             )}
             <h2 className='flex gap-2'>
               <span className='text-slate-800 font-bold'>Language :</span>
               <span className='text-slate-400 font-normal'>
-                {movie.original_language}
+                {movie.original_language || <Skeleton />}
               </span>
             </h2>
           </div>
@@ -175,11 +177,11 @@ export default async function MovieDetails({ params }: { params: string }) {
               />
               <div className='block mt-4'>
                 <h2 className='text-sm text-slate-700 font-semibold'>
-                  {company.name}
+                  {company.name || <Skeleton />}
                 </h2>
                 <h3 className='mt-2 flex gap-2 text-slate-400 font-normal'>
                   <span> {company.origin_country && "Country:"}</span>
-                  <span> {company.origin_country}</span>
+                  <span> {company.origin_country || <Skeleton />}</span>
                 </h3>
               </div>
             </div>
