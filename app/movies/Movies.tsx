@@ -18,7 +18,7 @@ export default function Movies({
     <div className=' h-1/3'>
       <>
         <Image
-          className='bg-cove bg-stone-300 transition ease-in-out hover:translate-y-1 hover:scale-110 duration-300 bg-no-repeat w-[400px] h-[350px] rounded-lg mx-0 my-0 cursor-pointer'
+          className=' bg-stone-300 transition ease-in-out hover:translate-y-1 hover:scale-110 duration-300 bg-no-repeat w-[400px] h-[350px] rounded-lg mx-0 my-0 cursor-pointer'
           src={imagePath + poster_path}
           alt={title}
           // loading='lazy'
