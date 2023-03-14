@@ -14,10 +14,15 @@ const getData = async (fn: any, url: string, config: any) => {
   }
 };
 
+interface ApiDataProp<T> {
+  page: number;
+  results: Array<T>;
+}
+
 const Home = () => {
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
   const [trendingMovies, setTrendingMovies] = useState<any[]>([]);
-  const [nowShowing, setNowShowing] = useState<any[]>([]);
+  const [nowShowing, setNowShowing] = useState<ApiDataProp<any[]>>();
   const [currentPage, setCurrentPage] = useState<number>(2);
 
   const myKey = process.env.API_KEY;
