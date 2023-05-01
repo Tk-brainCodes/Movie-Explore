@@ -3,13 +3,28 @@
 @tailwind utilities;
 
 @layer utilities {
-    /* Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .customOverlay {
+    background: rgba(16, 23, 26, 0.7);
+    opacity: 0.9;
+  }
+  .customOverlayDark {
+    background: rgba(11, 12, 24, 0.7);
+    opacity: 0.9;
+  }
+  .customModal {
+    background: #b2dbbf;
+    max-width: 500px;
+    width: 100%;
+  }
 }
