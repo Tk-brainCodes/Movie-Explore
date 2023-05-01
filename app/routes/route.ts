@@ -37,18 +37,18 @@ export const sidebar_routes = [
         id: 2,
         Icon: BookmarkBorderOutlinedIcon,
       },
-      {
-        title: "Top Rated",
-        url: "/top-rated",
-        id: 3,
-        Icon: StarBorderOutlinedIcon,
-      },
-      {
-        title: "Similar",
-        url: "/similar",
-        id: 4,
-        Icon: CategoryOutlinedIcon,
-      },
+      // {
+      //   title: "Top Rated",
+      //   url: "/top-rated",
+      //   id: 3,
+      //   Icon: StarBorderOutlinedIcon,
+      // },
+      // {
+      //   title: "Similar",
+      //   url: "/similar",
+      //   id: 4,
+      //   Icon: CategoryOutlinedIcon,
+      // },
     ],
   },
 ];
