@@ -1,34 +1,47 @@
 "use client";
+import { useContext } from "react";
 import { MovieDataProp } from "../types/movie-type";
-import { useState, useEffect } from "react";
 import Movies from "../movies/Movies";
+import LoadingSpiner from "./LoadingSpinner";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function MovieContainer({
   movie,
   text,
+  loading,
 }: {
   movie: any;
-  text: string;
+  text?: string;
+  loading: boolean;
 }) {
-  const [loading, setLoading] = useState<Boolean>(false);
-
-  useEffect(() => {
-    if (movie?.results?.length === 0) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
-  }, [loading]);
   return (
     <>
       <div className='w-auto'>
-        <h1 className='text-black  px-6 py-4 text-sm font-semibold'>{text}</h1>
-        <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto flex-row overflow-x-auto space-x-8 scroll-smooth no-scrollbar h-[400px] w-[940px]'>
+        <h1 className='text-white  px-6 py-4 text-sm font-semibold'>
+          {text ? text : ""}
+        </h1>
+        <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto flex-row overflow-x-auto space-x-8 scroll-smooth no-scrollbar h-[400px] w-[100vw]'>
+          {loading ? (
+            <div
+              role='status'
+              className='flex w-[400px] h-[360px] items-center justify-center  max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'
+            >
+              <svg
+                className='w-12 h-12 text-gray-200 dark:text-gray-600'
+                xmlns='http://www.w3.org/2000/svg'
+                aria-hidden='true'
+                fill='currentColor'
+                viewBox='0 0 384 512'
+              >
+                <path d='M361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215z' />
+              </svg>
+              <span className='sr-only'>Loading...</span>
+            </div>
+          ) : (
             <>
               {movie?.results?.map((movie: MovieDataProp) => (
-                <div className='snap-center flex-shrink-0'>
+                <div key={movie?.id} className='snap-center flex-shrink-0'>
                   <Movies
                     title={movie?.title as string}
                     movieId={movie?.id as number}
@@ -40,6 +53,7 @@ export default function MovieContainer({
                 </div>
               )) || <Skeleton count={10} height={400} />}
             </>
+          )}
         </div>
       </div>
     </>
