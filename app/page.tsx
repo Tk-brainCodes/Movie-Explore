@@ -3,75 +3,66 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieContainer from "./components/MovieCard";
 import ShowingInTheater from "./components/CustomMovieCard";
-
-const getData = async (fn: any, url: string, config: any) => {
-  try {
-    const resp = await axios.get(url, config);
-    const data = await resp?.data;
-    fn(data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-interface ApiDataProp<T> {
-  page: number;
-  results: Array<T>;
-}
+import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
-  const [popularMovies, setPopularMovies] = useState<any[]>([]);
-  const [trendingMovies, setTrendingMovies] = useState<any[]>([]);
-  const [nowShowing, setNowShowing] = useState<ApiDataProp<any[]>>();
+  const myKey = process.env.API_KEY;
   const [currentPage, setCurrentPage] = useState<number>(2);
 
-  const myKey = process.env.API_KEY;
+  const popularMoviesRecent = useQuery({
+    queryKey: ["popularMovies"],
+    queryFn: () =>
+      axios
+        .get(`https://api.themoviedb.org/3/movie/popular?api_key=${myKey}`)
+        .then((res) => res.data),
+    refetchInterval: 1000,
+  });
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  const nowShowing = useQuery({
+    queryKey: ["nowShowing"],
+    queryFn: () =>
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/now_playing?api_key=${myKey}&language=en-US&page=${currentPage}`
+        )
+        .then((res) => res.data),
+    refetchInterval: 1000,
+  });
 
-  const getPopularMovies = getData(
-    setPopularMovies,
-    `https://api.themoviedb.org/3/movie/popular?api_key=${myKey}`,
-    config
-  );
-
-  const getTrendingMovies = getData(
-    setTrendingMovies,
-    `https://api.themoviedb.org/3/trending/all/day?api_key=${myKey}`,
-    config
-  );
-
-  const getMoviesInTheatres = getData(
-    setNowShowing,
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${myKey}&language=en-US&page=${currentPage}`,
-    config
-  );
+  const trendingMovies = useQuery({
+    queryKey: ["trendingMovies"],
+    queryFn: () =>
+      axios
+        .get(`https://api.themoviedb.org/3/trending/all/day?api_key=${myKey}`)
+        .then((res) => res.data),
+    refetchInterval: 1000,
+  });
 
   useEffect(() => {
-    getPopularMovies;
-    getTrendingMovies;
-    getMoviesInTheatres;
-    localStorage.setItem("nowShowing", JSON.stringify(nowShowing));
-    localStorage.setItem("popular", JSON.stringify(popularMovies));
-    localStorage.setItem("trending", JSON.stringify(trendingMovies));
-  }, [nowShowing, popularMovies, trendingMovies]);
-
-  console.log({ showing: nowShowing });
+    localStorage.setItem("nowShowing", JSON.stringify(nowShowing.data));
+    localStorage.setItem("popular", JSON.stringify(popularMoviesRecent.data));
+    localStorage.setItem("trending", JSON.stringify(trendingMovies.data));
+  }, []);
 
   return (
     <main>
       <ShowingInTheater
-        movies={nowShowing}
+        movies={nowShowing.data}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         title={"Showing in theatres"}
+        loading={nowShowing.isLoading}
       />
-      <MovieContainer text='Popular Movies' movie={popularMovies} />
-      <MovieContainer text='Trending Movies' movie={trendingMovies} />
+      <MovieContainer
+        text='Popular Movies'
+        movie={popularMoviesRecent.data}
+        loading={popularMoviesRecent.isLoading}
+      />
+      <MovieContainer
+        text='Trending Movies'
+        movie={trendingMovies.data}
+        loading={trendingMovies.isLoading}
+      />
     </main>
   );
 };
