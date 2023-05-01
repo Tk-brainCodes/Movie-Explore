@@ -1,11 +1,9 @@
 "use client";
 import "./globals.css";
 import { Montserrat } from "@next/font/google";
-import { store } from "./redux/store";
-import { Provider } from "react-redux";
 import Sidenav from "./components/Sidenav";
 import TopNav from "./components/Topnav";
-import { ThemeContextProvider } from "./context/theme";
+import QueryProvider from "./appContext";
 
 const monstserrat = Montserrat({
   weight: ["400", "700"],
@@ -29,16 +27,16 @@ export default function RootLayout({
         href='https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css'
       ></link>
       <head />
-      <body className={`${monstserrat.className} w-full overflow-x-hidden`}>
-        <Provider store={store}>
-          <ThemeContextProvider>
-            <TopNav />
-            <div className='grid'>
-              <Sidenav />
-              <div className='px-8 py-4 mt-[5em] ml-[15em]'>{children}</div>
-            </div>
-          </ThemeContextProvider>
-        </Provider>
+      <body
+        className={`${monstserrat.className} bg-gray-900 w-full overflow-x-hidden`}
+      >
+        <QueryProvider>
+          <TopNav />
+          <div className='grid'>
+            <Sidenav />
+            <div className={`px-8 py-4 mt-[5em] max-sm:ml-2`}>{children}</div>
+          </div>
+        </QueryProvider>
       </body>
     </html>
   );
