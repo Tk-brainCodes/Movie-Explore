@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true
   },
   images: {
-    domains: ['image.tmdb.org']
+    domains: ['image.tmdb.org', 'lh3.googleusercontent.com']
   },
   env: {
     API_KEY: process.env.API_KEY
