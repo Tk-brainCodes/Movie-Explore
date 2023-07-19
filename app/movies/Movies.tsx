@@ -4,9 +4,11 @@ import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../context/Globalcontext";
 import { MovieCardProps } from "../types/movie-type";
 import { usePathname } from "next/navigation";
+import { db } from "@/firebase.config";
+import { getDoc, doc, getDocs, collection } from "firebase/firestore";
+import { Toaster } from "react-hot-toast";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import Image from "next/image";
 import AnimatedPage from "@/app/components/Animation";
@@ -22,17 +24,21 @@ const Movies = ({
   const pathnanme = usePathname();
 
   const {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     addRecentMovieVisit,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     addMovieToBookmarked,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     removeMovieFromBookmarked,
     bookmarked,
+    // @ts-ignore
+    user,
+    // @ts-ignore
+    notifySuccess,
+    // @ts-ignore
+    notifyError,
   } = useContext(GlobalContext);
+
   const [savedBookmarks, setSavedBookmarks] = useState([]);
   const [isBookmarked, setBookmarked] = useState<boolean>(() => {
     const doesMovieExist = savedBookmarks.find(
@@ -40,6 +46,16 @@ const Movies = ({
     );
     return !!doesMovieExist;
   });
+  const [exists, setExists] = useState(false);
+
+  const checkIfItemExists = async () => {
+    const bookmarkCol = collection(db, `${user?.uid as string}`);
+    const bookmarkSnapshot = await getDocs(bookmarkCol);
+    const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
+
+    const itemExists = bookmarkList.some((item) => item.id === movieId);
+    setExists(itemExists);
+  };
 
   const movieData = {
     title: title,
@@ -49,13 +65,25 @@ const Movies = ({
     background: backdrop_path,
   };
 
-  const handleAddBookmarked = async () => {
-    if (isBookmarked) {
-      removeMovieFromBookmarked(movieId);
-      setBookmarked((prev) => !prev);
+  const handleAddBookmarked = () => {
+    if (exists && isBookmarked == true) {
+      try {
+        removeMovieFromBookmarked(movieId);
+        setBookmarked((prev) => !prev);
+        notifySuccess();
+      } catch (error: any) {
+        notifyError();
+        console.log(error);
+      }
     } else {
-      addMovieToBookmarked(movieData);
-      setBookmarked((prev) => !prev);
+      try {
+        addMovieToBookmarked(movieData);
+        setBookmarked((prev) => !prev);
+        notifySuccess();
+      } catch (error: any) {
+        notifyError();
+        console.log(error);
+      }
     }
   };
 
@@ -65,15 +93,19 @@ const Movies = ({
 
   useEffect(() => {
     setSavedBookmarks(bookmarked);
-  }, [bookmarked]);
+    checkIfItemExists();
+  }, [bookmarked, exists]);
 
   return (
     <div className=' h-1/3'>
+      <Toaster />
       <AnimatedPage>
         <>
           <Link href={`movies/${movieId}`}>
             <Image
-              className={`bg-gray-300  ${poster_path === "" && "animate-pulse dark:bg-gray-700"} transition ease-in-out hover:brightness-50 hover:translate-y-1 hover:scale-110 duration-300 bg-no-repeat w-[350px] h-[350px] rounded-lg mx-0 my-0 cursor-pointer`}
+              className={`bg-gray-300  ${
+                poster_path === "" && "animate-pulse dark:bg-gray-700"
+              } transition ease-in-out hover:brightness-50 hover:translate-y-1 hover:scale-110 duration-300 bg-no-repeat w-[350px] h-[350px] rounded-lg mx-0 my-0 cursor-pointer`}
               src={imagePath + poster_path}
               alt={title}
               loading='lazy'
@@ -90,7 +122,7 @@ const Movies = ({
               className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
               onClick={handleAddBookmarked}
             >
-              {isBookmarked ? (
+              {exists ? (
                 <BookmarkAddedIcon className='text-green-500' />
               ) : (
                 <BookmarkBorderOutlinedIcon />
