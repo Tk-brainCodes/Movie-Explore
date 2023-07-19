@@ -15,19 +15,24 @@ import {
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../../firebase.config";
-
+import { auth, db } from "../../firebase.config";
+import toast from "react-hot-toast";
+import { UserProps } from "../types/firbase-user-types";
 import AppReducer from "./AppReducer";
 
+
+
+let isHasKey;
+
 const initialState = {
-  bookmarked: JSON.parse(localStorage.getItem("bookmarked") as string)
-    ? JSON.parse(localStorage.getItem("bookmarked") as string)
-    : ([] as Array<any[]>),
-  recentMovies: JSON.parse(localStorage.getItem("recent") as string)
-    ? JSON.parse(localStorage.getItem("recent") as string)
-    : ([] as Array<any[]>),
+  bookmarked: JSON.parse(localStorage.getItem("myBookmarks") as string)
+    ? JSON.parse(localStorage.getItem("myBookmarks") as string)
+    : [],
+  recentMovies: [],
+  error: "",
+  bookmarkError: "",
 };
 
 export const GlobalContext = createContext(initialState);
@@ -36,14 +41,101 @@ export const GlobalProvider = (props: any) => {
   const sidebarRef = useRef<any>(null);
   const [state, dispatch] = useReducer(AppReducer, initialState);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [user, setUser] = useState<string>("");
+  const [user, setUser] = useState<UserProps>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [hasKey, setHasKey] = useState(false);
 
-  const addMovieToBookmarked = (movie: any) => {
-    dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED", payload: movie });
+  const notifySuccess = (message: string) => toast.success(message);
+  const notifyError = (message: string) => toast.error(message);
+
+  const addMovieToBookmarked = async (movie: any) => {
+    const movieId = movie.id.toString();
+    const { background, date, id, poster_path, title } = movie;
+
+    try {
+      dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED" });
+      const bookmarkedItemRef = doc(db, `${user?.uid as string}`, movieId);
+      const docSnap = await getDoc(bookmarkedItemRef);
+
+      if (docSnap.exists()) {
+        const existItem = docSnap.data();
+        notifyError(existItem.title + "alreday an existing item");
+        dispatch({ type: "ADD_BOOKMARK_FAIL" });
+      } else {
+        notifySuccess("adding" + title + "to bookmarks");
+        await setDoc(doc(db, `${user?.uid as string}`, movieId), {
+          background,
+          date,
+          id,
+          poster_path,
+          title,
+        });
+        notifySuccess(title + "has been successfully added");
+        dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED", payload: movie });
+      }
+    } catch (error: any) {
+      notifyError("failed to add" + title + error);
+      dispatch({
+        type: "ADD_BOOKMARK_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
   };
 
-  const removeMovieFromBookmarked = (id: number) => {
-    dispatch({ type: "REMOVE_FROM_BOOKMARKED", payload: id });
+  const removeMovieFromBookmarked = async (id: number) => {
+    const movieId = id.toString();
+    try {
+      dispatch({ type: "REMOVE_FROM_BOOKMARKED" });
+      await deleteDoc(doc(db, `${user?.uid as string}`, movieId));
+      notifySuccess(id + "was successfully deleted");
+      dispatch({ type: "REMOVE_FROM_BOOKMARKED", payload: id });
+      // location.reload();
+    } catch (error: any) {
+      notifyError("failed to remove" + id);
+      dispatch({
+        type: "ADD_BOOKMARK_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+  const getBookmarksFromFirebaseDB = async () => {
+    const getBookmarkItems = async (db: any) => {
+      const bookmarkCol = collection(db, `${user?.uid as string}`);
+      const bookmarkSnapshot = await getDocs(bookmarkCol);
+      const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
+      return bookmarkList;
+    };
+
+    try {
+      let allBookmarks = await getBookmarkItems(db);
+      state.bookmarked = allBookmarks;
+      if (state.bookmarked) {
+        const bookmarkStateString = JSON.stringify(state.bookmarked);
+        localStorage.setItem("myBookmarks", bookmarkStateString);
+      }
+      setLoading(false);
+    } catch (error: any) {
+      dispatch({
+        type: "GET_BOOKMARK_ERROR",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+  const checkForKey = () => {
+    const value = localStorage.getItem("myBookmarks");
+    const keyExists = value !== null;
+    setHasKey(keyExists);
   };
 
   const addRecentMovieVisit = (movie: any) => {
@@ -63,17 +155,14 @@ export const GlobalProvider = (props: any) => {
   };
   const googleSignIn = () => {
     const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider)
-  }
+    return signInWithPopup(auth, googleAuthProvider);
+  };
 
   useEffect(() => {
-    localStorage.setItem("bookmarked", JSON.stringify(state.bookmarked));
-    localStorage.setItem("recent", JSON.stringify(state.recentMovies));
-
     const unsubscribe = onAuthStateChanged(auth, (currentUser: any) => {
       setUser(currentUser);
     });
-
+    checkForKey();
     const handleClickOutside = (event: Event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
         setIsSidebarOpen(false);
@@ -86,13 +175,14 @@ export const GlobalProvider = (props: any) => {
       document.removeEventListener("mousedown", handleClickOutside);
       unsubscribe();
     };
-  }, [state, sidebarRef]);
+  }, [state, sidebarRef, hasKey]);
 
   return (
     <GlobalContext.Provider
       value={{
         bookmarked: state.bookmarked,
         recentMovies: state.recentMovies,
+        error: state.error,
         // @ts-ignore
         addMovieToBookmarked,
         removeMovieFromBookmarked,
@@ -106,6 +196,10 @@ export const GlobalProvider = (props: any) => {
         user,
         logout,
         googleSignIn,
+        getBookmarksFromFirebaseDB,
+        loading,
+        notifySuccess,
+        notifyError,
       }}
     >
       {props.children}
