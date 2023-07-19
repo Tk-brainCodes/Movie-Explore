@@ -21,12 +21,20 @@ export default (state: any, action: any) => {
       return {
         ...state,
         bookmarked: state.bookmarked.filter(
-          (movie: Movie) => movie.id !== action.payload
+          (movie: Movie) => movie?.id !== action.payload
         ),
       };
     case "ADD_RECENT_MOVIE":
       return {
         recentMovies: [...state.recentMovies, action.payload],
+      };
+    case "ADD_BOOKMARK_FAIL":
+      return {
+        error: action.payload,
+      };
+    case "GET_BOOKMARK_ERROR":
+      return {
+        bookmarkError: action.payload,
       };
     default:
       return state;
