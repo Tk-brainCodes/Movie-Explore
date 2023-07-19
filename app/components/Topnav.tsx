@@ -9,6 +9,7 @@ import SignupForm from "./Signup";
 import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import no_image from "../../public/image/no_image.jpg";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -30,10 +31,10 @@ const tabData = [
 export default function TopNav() {
   // @ts-ignore
   const { toggleSidebar, user, logout } = useContext(GlobalContext);
-  console.log("user :", user);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("tab1");
+  console.log(user);
 
   const handleLogout = async () => {
     try {
@@ -113,18 +114,16 @@ export default function TopNav() {
               <SearchOutlinedIcon />
             </motion.span>
           </Link>
-          {user ? (
+          {user && (
             <Image
-              src={user?.photoURL}
-              alt={user?.email}
+              src={user?.photoUR || no_image}
+              alt={user?.email || ""}
               width={500}
               height={500}
-              className='w-[40px] h-[40px] rounded-full'
+              className='w-[40px] h-[40px] rounded-full  via-cyan-900 to-stone-500 bg-gradient-to-r'
               // loading='lazy'
               priority
             />
-          ) : (
-            ""
           )}
           <button
             className='flex gap-1 items-center justify-center hover:text-white hover:bg-orange-400 transition ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white rounded-full'
