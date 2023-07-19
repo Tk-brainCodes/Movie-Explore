@@ -4,20 +4,25 @@ import { usePathname } from "next/navigation";
 import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../context/Globalcontext";
 import { motion } from "framer-motion";
-import no_image from "../../../../public/image/no_image.jpg";
 import "react-responsive-modal/styles.css";
 import Link from "next/link";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 
 export default function Sidenav() {
   const pathname = usePathname();
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const { bookmarked, toggleSidebar, isSidebarOpen, sidebarRef } =
-    useContext(GlobalContext);
-  // const numItems = bookmarked?.length;
+  const {
+    bookmarked,
+    // @ts-ignore
+    toggleSidebar,
+    // @ts-ignore
+    isSidebarOpen,
+    // @ts-ignore
+    sidebarRef,
+    // @ts-ignore
+    getBookmarksFromFirebaseDB,
+  } = useContext(GlobalContext);
+
+  const [bookmarkLength, setBookmarkLength] = useState([]);
 
   const sideVariants = {
     closed: {
@@ -40,6 +45,12 @@ export default function Sidenav() {
     },
     open: { opacity: 1 },
   };
+
+  useEffect(() => {
+    const item = JSON.parse(localStorage.getItem("myBookmarks") as string);
+    setBookmarkLength(item);
+  }, []);
+  const length = bookmarkLength?.length as number;
 
   return (
     <>
@@ -84,24 +95,23 @@ export default function Sidenav() {
                           }}
                           variants={itemVariants}
                         >
-                          {title}
+                          {title === "Bookmarked" ? (
+                            <>
+                              {title}
+                              {bookmarkLength ? (
+                                <span className='w-[25px] h-[25px] flex px-2 items-center justify-center ml-[6.5em]  -mt-[19px] absolute bg-red-500 rounded-full text-white'>
+                                  <p className='text-xs text-white font-semibold'> 
+                                    {length ? length : ""}
+                                  </p>
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                            </>
+                          ) : (
+                            title
+                          )}
                         </motion.span>
-                        {/* {title === "Bookmarked" ? (
-                      <>
-                        {title}
-                        {numItems ? (
-                          <span className='w-[25px] h-[25px] flex px-2 items-center justify-center -ml-[6px] -mt-[15px] relative bg-red-500 rounded-full text-white'>
-                            <p className='text-xs font-semibold'>
-                              {numItems ? numItems : ""}
-                            </p>
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </>
-                    ) : (
-                      title
-                    )} */}
                       </Link>
                     );
                   })}
