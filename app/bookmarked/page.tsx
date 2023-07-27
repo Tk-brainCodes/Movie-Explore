@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { GlobalContext } from "../context/Globalcontext";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,33 +22,24 @@ const Bookmarked = () => {
     // @ts-ignore
     loading,
     // @ts-ignore
-    notifySuccess,
-    // @ts-ignore
-    notifyError,
   } = useContext(GlobalContext);
 
+  const prevLocalStorageBookmarks = useRef(localStorageBookMarks);
 
-  const handleRemoveBookmarked = (id: number) => {
-    try {
-      removeMovieFromBookmarked(id);
-      notifySuccess();
-    } catch (error: any) {
-      notifyError();
-      console.log(error);
-    }
-  };
+useEffect(() => {
+  getBookmarksFromFirebaseDB();
+  const storedItem = JSON.parse(localStorage.getItem("myBookmarks") || "[]");
+  if (prevLocalStorageBookmarks.current !== storedItem) {
+    setLocalStorageBookmarks(storedItem);
+  }
+  prevLocalStorageBookmarks.current = storedItem;
+}, [localStorageBookMarks]);
+
 
 
   useEffect(() => {
-    setBookmarked(bookmarked); 
-    getBookmarksFromFirebaseDB();       
-    const storedItem = JSON.parse(localStorage.getItem("myBookmarks") as string)
-    setLocalStorageBookmarks(storedItem)
-  }, [myBookmarked, localStorageBookMarks]);
-
-    console.log("bookmarks", bookmarked)
-
-    let checkIFBookmarkEmpty = myBookmarked.length === 0 ? localStorageBookMarks : myBookmarked;
+    setBookmarked(bookmarked);
+  }, [bookmarked]);
 
 
   return (
@@ -65,7 +56,7 @@ const Bookmarked = () => {
               </div>
             ) : (
               <div className='grid lg:grid-cols-4 md:grid-cols-2 max-sm:grid-cols-1  gap-6 items-center'>
-                {checkIFBookmarkEmpty?.map((movie: any) => (
+                {localStorageBookMarks?.map((movie: any) => (
                   <div className='w-[250px] '>
                     <Link href={`movies/${movie?.id}`}>
                       <Image
@@ -83,7 +74,7 @@ const Bookmarked = () => {
                       <button
                         title='bookmark movie'
                         className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
-                        onClick={() => handleRemoveBookmarked(movie?.id)}
+                        onClick={() =>removeMovieFromBookmarked(movie?.id)}
                       >
                         <BookmarkAddedIcon className='text-green-500' />
                       </button>
