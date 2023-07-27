@@ -1,0 +1,19 @@
+
+[
+  {
+    "name": "Menu",
+    "id": 1,
+    "paths": [
+      { "title": "Home", "url": "/", "id": 1, "Icon": "HomeRoundedIcon" },
+      { "title": "Discover", "url": "/discover", "id": 2, "Icon": "ExploreRoundedIcon" },
+      { "title": "Coming Soon", "url": "/coming-soon", "id": 3, "Icon": "AccessAlarmRoundedIcon" }
+    ]
+  },
+  {
+    "name": "Library",
+    "id": 2,
+    "paths": [
+      { "title": "Bookmarked", "url": "/bookmarked", "id": 2, "Icon": "BookmarkBorderOutlinedIcon" }
+    ]
+  }
+]
