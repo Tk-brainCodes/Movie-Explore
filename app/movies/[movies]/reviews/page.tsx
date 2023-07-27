@@ -18,6 +18,7 @@ import 'nprogress/nprogress.css';
 export default function ReviewPage({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
   const { movies }: any = params;
+  let movieId = movies === "%5Bmovies%5D" ? 447277 : movies;
   const imagePath = "https://image.tmdb.org/t/p/original";
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<null | SelectedProp>(null);
@@ -34,7 +35,7 @@ export default function ReviewPage({ params }: { params: string }) {
     queryFn: () =>
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/${movies}/reviews?api_key=${mykey}&language=en-US&page=1`
+          `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${mykey}&language=en-US&page=1`
         )
         .then((res) => res.data),
     refetchInterval: 1000,

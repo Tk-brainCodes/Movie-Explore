@@ -16,13 +16,14 @@ export default function WatchVideo({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
   const { movies }: any = params;
   const router = useRouter();
+  let movieId = movies === "%5Bmovies%5D" ? 447277 : movies;
 
   const movieVideo = useQuery({
     queryKey: ["video"],
     queryFn: () =>
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/${movies}/videos?api_key=${mykey}&language=en-US`
+          `https://api.themoviedb.org/3/movie/${moviId}/videos?api_key=${mykey}&language=en-US`
         )
         .then((res) => res.data),
     refetchInterval: 1000,

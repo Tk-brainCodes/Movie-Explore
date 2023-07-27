@@ -26,6 +26,8 @@ const Bookmarked = () => {
 
   const prevLocalStorageBookmarks = useRef(localStorageBookMarks);
 
+  //TODO: Check if item exists in db, then map through the items
+
 useEffect(() => {
   getBookmarksFromFirebaseDB();
 const storedItem = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("myBookmarks") || "[]") : "";

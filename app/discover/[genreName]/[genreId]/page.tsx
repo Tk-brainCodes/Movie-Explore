@@ -17,13 +17,14 @@ import 'nprogress/nprogress.css';
 
 const MovieDetails = ({ params }: { params: string }) => {
   const { genreName, genreId }: any = params;
+  let getGenreId = genreId === "%5Bmovies%5D" ? 28 : genreId;
 
   const genreMovies = useQuery({
     queryKey: ["genreMovies"],
     queryFn: () =>
       axios
         .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&with_genres=${genreId}`
+          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&with_genres=${getGenreId}`
         )
         .then((res) => res.data),
     refetchInterval: 1000,
