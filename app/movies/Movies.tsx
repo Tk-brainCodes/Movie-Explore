@@ -133,7 +133,7 @@ const Movies = ({
                 <BookmarkBorderOutlinedIcon />
               )}
             </button>
-            <Link
+            <Link 
               href={`movies/${movieId}/watch`}
               title='watch trailer'
               className='text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full'
