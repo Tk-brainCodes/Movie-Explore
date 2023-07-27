@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -33,6 +34,7 @@
     "framer-motion": "^10.12.2",
     "lodash": "^4.17.21",
     "next": "13.1.6",
+    "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-google-button": "^0.7.2",
@@ -52,8 +54,10 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.194",
+    "@types/nprogress": "^0.2.0",
     "autoprefixer": "^10.4.13",
     "cypress": "^12.12.0",
+    "encoding": "^0.1.13",
     "eslint-plugin-next": "^0.0.0",
     "postcss": "^8.4.21",
     "prisma": "^4.11.0",
