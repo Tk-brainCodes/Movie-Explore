@@ -1,5 +1,11 @@
-"use client";
-import { createContext, useEffect, useReducer, useState, useRef } from "react";
+import {
+  createContext,
+  useEffect,
+  useReducer,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import {
   collection,
   getDoc,
@@ -23,14 +29,10 @@ import { UserProps } from "../types/firbase-user-types";
 import AppReducer from "./AppReducer";
 
 
-
-let isHasKey;
-
 const initialState = {
   bookmarked: JSON.parse(localStorage.getItem("myBookmarks") as string)
     ? JSON.parse(localStorage.getItem("myBookmarks") as string)
-    : [],
-  recentMovies: [],
+    : [],    recentMovies: [],
   error: "",
   bookmarkError: "",
 };
@@ -43,11 +45,13 @@ export const GlobalProvider = (props: any) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [user, setUser] = useState<UserProps>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [hasKey, setHasKey] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
+
 
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
 
+  //add bookmarks to firebase
   const addMovieToBookmarked = async (movie: any) => {
     const movieId = movie.id.toString();
     const { background, date, id, poster_path, title } = movie;
@@ -62,7 +66,7 @@ export const GlobalProvider = (props: any) => {
         notifyError(existItem.title + "alreday an existing item");
         dispatch({ type: "ADD_BOOKMARK_FAIL" });
       } else {
-        notifySuccess("adding" + title + "to bookmarks");
+        notifySuccess(`adding ${title} to bookmarks`);
         await setDoc(doc(db, `${user?.uid as string}`, movieId), {
           background,
           date,
@@ -85,16 +89,16 @@ export const GlobalProvider = (props: any) => {
     }
   };
 
+  //remove bookmarks from firebase
   const removeMovieFromBookmarked = async (id: number) => {
     const movieId = id.toString();
     try {
-      dispatch({ type: "REMOVE_FROM_BOOKMARKED" });
-      await deleteDoc(doc(db, `${user?.uid as string}`, movieId));
-      notifySuccess(id + "was successfully deleted");
       dispatch({ type: "REMOVE_FROM_BOOKMARKED", payload: id });
+      await deleteDoc(doc(db, `${user?.uid as string}`, movieId));
+      notifySuccess(`Movie Id: ${id} was successfully deleted`);
       // location.reload();
     } catch (error: any) {
-      notifyError("failed to remove" + id);
+      notifyError(`failed to remove  ${id}`);
       dispatch({
         type: "ADD_BOOKMARK_FAIL",
         payload:
@@ -105,38 +109,36 @@ export const GlobalProvider = (props: any) => {
     }
   };
 
-  const getBookmarksFromFirebaseDB = async () => {
-    const getBookmarkItems = async (db: any) => {
-      const bookmarkCol = collection(db, `${user?.uid as string}`);
-      const bookmarkSnapshot = await getDocs(bookmarkCol);
-      const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
-      return bookmarkList;
-    };
 
-    try {
-      let allBookmarks = await getBookmarkItems(db);
+  //get all bookmarks from firebase
+   const getBookmarksFromFirebaseDB = useCallback(async () => {
+     const getBookmarkItems = async (db: any) => {
+       const bookmarkCol = collection(db, `${user?.uid as string}`);
+       const bookmarkSnapshot = await getDocs(bookmarkCol);
+       const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
+       return bookmarkList;
+     };
+
+     try {
+       let allBookmarks = await getBookmarkItems(db);
+      dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED"})
+      //  dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED", payload: allBookmarks });
       state.bookmarked = allBookmarks;
-      if (state.bookmarked) {
-        const bookmarkStateString = JSON.stringify(state.bookmarked);
-        localStorage.setItem("myBookmarks", bookmarkStateString);
-      }
-      setLoading(false);
-    } catch (error: any) {
-      dispatch({
-        type: "GET_BOOKMARK_ERROR",
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
-
-  const checkForKey = () => {
-    const value = localStorage.getItem("myBookmarks");
-    const keyExists = value !== null;
-    setHasKey(keyExists);
-  };
+      if (allBookmarks.length) {
+         const bookmarkStateString = JSON.stringify(state.bookmarked);
+         localStorage.setItem("myBookmarks", bookmarkStateString);
+       }
+       setLoading(false);
+     } catch (error: any) {
+       dispatch({
+         type: "GET_BOOKMARK_ERROR",
+         payload:
+           error.response && error.response.data.message
+             ? error.response.data.message
+             : error.message,
+       });
+     }
+   }, [state.bookmarked, db, dispatch])
 
   const addRecentMovieVisit = (movie: any) => {
     dispatch({ type: "ADD_RECENT_MOVIE", payload: movie });
@@ -158,24 +160,32 @@ export const GlobalProvider = (props: any) => {
     return signInWithPopup(auth, googleAuthProvider);
   };
 
+
+  // useEffect(() => {
+  //   getBookmarksFromFirebaseDB();
+  // }, [state.bookmarked, getBookmarksFromFirebaseDB]);
+
+  const handleClickOutside = useCallback((event: Event) => {
+    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      setIsSidebarOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser: any) => {
       setUser(currentUser);
     });
-    checkForKey();
-    const handleClickOutside = (event: Event) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        setIsSidebarOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
       unsubscribe();
     };
-  }, [state, sidebarRef, hasKey]);
+  }, []);
 
   return (
     <GlobalContext.Provider
@@ -200,6 +210,7 @@ export const GlobalProvider = (props: any) => {
         loading,
         notifySuccess,
         notifyError,
+        bookmarks
       }}
     >
       {props.children}
