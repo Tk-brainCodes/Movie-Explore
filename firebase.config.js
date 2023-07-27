@@ -3,17 +3,17 @@ import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCovXD_U2I9z_qs-G-R50G8SOfjRzXZHDQ',
-  authDomain: 'movie-explore-8170b.firebaseapp.com',
-  projectId: 'movie-explore-8170b',
-  storageBucket: 'movie-explore-8170b.appspot.com',
-  messagingSenderId: '716413718113',
-  appId: '1:716413718113:web:9bc6bdc04b9255e56d6420',
-  measurementId: 'G-STP6D5EGDC'
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 }
 
 const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
 export const auth = getAuth(app)
 
-export default app
+export default app 
