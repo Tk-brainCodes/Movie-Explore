@@ -154,7 +154,7 @@ export default async function MovieDetails({ params }: { params: string }) {
                 {movie.original_language || <Skeleton />}
               </span>
             </h2>
-            <Link href={`${movie?.id}/reviews`}>
+            <Link href={`movies/${movie?.id}/reviews`}>
               <button className='p-1 w-[100px] flex h-fit text-justify justify-center text-xs bg-slate-500 rounded-full text-white'>
                 reviews
               </button>
@@ -162,7 +162,7 @@ export default async function MovieDetails({ params }: { params: string }) {
           </div>
           <div className='flex gap-3 mt-6 items-center justify-start'>
             <Link
-              href={`${movie?.id}/watch`}
+              href={`movies/${movie?.id}/watch`}
               title='watch trailer'
               className='px-2 py-2 font-semibold text-sm  flex items-center justify-around gap-3 bg-orange-500 transition ease-in-out hover:bg-orange-600 rounded-md'
             >
