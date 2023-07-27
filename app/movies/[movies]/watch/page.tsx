@@ -23,7 +23,7 @@ export default function WatchVideo({ params }: { params: string }) {
     queryFn: () =>
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/${moviId}/videos?api_key=${mykey}&language=en-US`
+          `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${mykey}&language=en-US`
         )
         .then((res) => res.data),
     refetchInterval: 1000,
