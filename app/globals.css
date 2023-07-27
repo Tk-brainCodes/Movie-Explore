@@ -6,7 +6,7 @@
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
-  }
+  } 
   html {
     scroll-behavior: smooth;
   }
@@ -19,12 +19,14 @@
     opacity: 0.9;
   }
   .customOverlayDark {
-    background: rgba(11, 12, 24, 0.7);
-    opacity: 0.9;
+    background: rgba(10, 11, 24, 0.7);
   }
   .customModal {
     background: #b2dbbf;
     max-width: 500px;
     width: 100%;
+  }
+  .customModalAuth{
+     background: rgba(10, 11, 24, 0.7);
   }
 }
