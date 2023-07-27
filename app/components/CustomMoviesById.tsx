@@ -22,7 +22,7 @@ const CustomMovieById = ({ movie_id }: { movie_id: number }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem("similarMovies", JSON.stringify(similarMovies.data));
+     typeof window !== 'undefined' ?  localStorage.setItem("similarMovies", JSON.stringify(similarMovies.data)) : "";
   });
 
   return (

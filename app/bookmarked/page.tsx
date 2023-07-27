@@ -28,12 +28,17 @@ const Bookmarked = () => {
 
 useEffect(() => {
   getBookmarksFromFirebaseDB();
-  const storedItem = JSON.parse(localStorage.getItem("myBookmarks") || "[]");
+const storedItem = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("myBookmarks") || "[]") : "";
   if (prevLocalStorageBookmarks.current !== storedItem) {
     setLocalStorageBookmarks(storedItem);
   }
   prevLocalStorageBookmarks.current = storedItem;
-}, [localStorageBookMarks]);
+}, []);
+
+const handleRemoveBookmarks = (id: number) =>{
+  removeMovieFromBookmarked()
+   location.reload()
+}
 
 
 
@@ -74,7 +79,7 @@ useEffect(() => {
                       <button
                         title='bookmark movie'
                         className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
-                        onClick={() =>removeMovieFromBookmarked(movie?.id)}
+                        onClick={() =>handleRemoveBookmarks(movie?.id)}
                       >
                         <BookmarkAddedIcon className='text-green-500' />
                       </button>

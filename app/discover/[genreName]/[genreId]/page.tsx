@@ -35,9 +35,9 @@ const MovieDetails = ({ params }: { params: string }) => {
     } else {
       nprogress.done()
     }
-    if(!genreMovies.isFetching &&  genreMovies.isSuccess){
-        localStorage.setItem("genreMovies", JSON.stringify(genreMovies.data));
-    }
+  if (!genreMovies.isFetching &&  genreMovies.isSuccess) {
+        typeof window !== 'undefined' ? localStorage.setItem("genreMovies", JSON.stringify(genreMovies.data)) : "";
+  }
   }, []);
 
   const imagePath = "https://image.tmdb.org/t/p/original";

@@ -46,9 +46,12 @@ export default function ReviewPage({ params }: { params: string }) {
     } else {
       nprogress.done()
     }
-    if(!movierReview.isFetching && movierReview.isSuccess){
-        localStorage.setItem("reviews", JSON.stringify(movierReview.data));
-    }
+  if (
+    !movierReview.isFetching &&
+    movierReview.isSuccess
+  ) {
+      typeof window !== 'undefined' ? localStorage.setItem("reviews", JSON.stringify(movierReview.data)) : "";
+  }
   });
 
   return (

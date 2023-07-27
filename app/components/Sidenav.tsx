@@ -46,7 +46,7 @@ export default function Sidenav() {
 
   useEffect(() => {
     getBookmarksFromFirebaseDB()
-    const item = JSON.parse(localStorage.getItem("myBookmarks") as string);
+    const item = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("myBookmarks") as string) : "";
     setBookmarkLength(item);
   }, [bookmarked]);
   const length = bookmarkLength?.length as number;

@@ -33,7 +33,7 @@ export default function ComingSoon() {
       nprogress.done();
     }
  if (!comingSoon.isFetching && comingSoon.isSuccess) {
-      localStorage.setItem('comingSoon', JSON.stringify(comingSoon.data));
+      typeof window !== 'undefined' ? localStorage.setItem('comingSoon', JSON.stringify(comingSoon.data)) : "";
     }
   }, []);
 

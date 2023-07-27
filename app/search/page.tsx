@@ -31,8 +31,8 @@ export default function SearchMovies() {
   };
 
   useEffect(() => {
-    localStorage.setItem("results", JSON.stringify(results));
-    localStorage.setItem("query", JSON.stringify(query));
+    typeof window !== 'undefined' ? localStorage.setItem("results", JSON.stringify(results)) : "";
+    typeof window !== 'undefined' ? localStorage.setItem("query", JSON.stringify(query)) : "";
   }, [query, results]);
 
   return (

@@ -28,11 +28,13 @@ import toast from "react-hot-toast";
 import { UserProps } from "../types/firbase-user-types";
 import AppReducer from "./AppReducer";
 
+let localStorageBookmarks =
+  typeof window !== "undefined" ?
+  JSON.parse(localStorage.getItem("myBookmarks") as string) : "" ;
 
 const initialState = {
-  bookmarked: JSON.parse(localStorage.getItem("myBookmarks") as string)
-    ? JSON.parse(localStorage.getItem("myBookmarks") as string)
-    : [],    recentMovies: [],
+  bookmarked: localStorageBookmarks ? localStorageBookmarks : [],
+  recentMovies: [],
   error: "",
   bookmarkError: "",
 };
@@ -126,7 +128,7 @@ export const GlobalProvider = (props: any) => {
       state.bookmarked = allBookmarks;
       if (allBookmarks.length) {
          const bookmarkStateString = JSON.stringify(state.bookmarked);
-         localStorage.setItem("myBookmarks", bookmarkStateString);
+         typeof window !== 'undefined' ? localStorage.setItem("myBookmarks", bookmarkStateString) : "";
        }
        setLoading(false);
      } catch (error: any) {

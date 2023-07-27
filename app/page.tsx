@@ -56,10 +56,11 @@ const Home = () => {
     canCacheData(popularMoviesRecent) &&
     canCacheData(trendingMovies)
   ) {
-    localStorage.setItem("nowShowing", JSON.stringify(nowShowing.data));
-    localStorage.setItem("popular", JSON.stringify(popularMoviesRecent.data));
-    localStorage.setItem("trending", JSON.stringify(trendingMovies.data));
+    typeof window !== 'undefined' ? localStorage.setItem("nowShowing", JSON.stringify(nowShowing.data)) : "";
+    typeof window !== 'undefined' ? localStorage.setItem("popular", JSON.stringify(popularMoviesRecent.data)) : "";
+    typeof window !== 'undefined' ? localStorage.setItem("trending", JSON.stringify(trendingMovies.data)) : "";
   }
+
   }, [nowShowing, popularMoviesRecent, trendingMovies]);
 
   return (

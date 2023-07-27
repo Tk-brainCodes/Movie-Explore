@@ -34,9 +34,9 @@ export default function WatchVideo({ params }: { params: string }) {
     } else {
       nprogress.done();
     }
-    if (!movieVideo.isFetching && movieVideo.isSuccess){
-      localStorage.setItem("video", JSON.stringify(movieVideo.data));
-    }
+  if (!movieVideo.isFetching && movieVideo.isSuccess) {
+      typeof window !== 'undefined' ? localStorage.setItem("video", JSON.stringify(movieVideo.data)) : "";
+  }
   });
 
   return (
