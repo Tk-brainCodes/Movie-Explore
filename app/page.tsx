@@ -4,9 +4,13 @@ import axios from "axios";
 import MovieContainer from "./components/MovieCard";
 import ShowingInTheater from "./components/CustomMovieCard";
 import { useQuery } from "@tanstack/react-query";
+import Footer from "./components/Footer";
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'; 
+
 
 const Home = () => {
-  const myKey = process.env.API_KEY;
+  const myKey = process.env.NEXT_PUBLIC_API_KEY;
   const [currentPage, setCurrentPage] = useState<number>(2);
 
   const popularMoviesRecent = useQuery({
@@ -39,13 +43,32 @@ const Home = () => {
   });
 
   useEffect(() => {
+    // if(nowShowing.isLoading && popularMoviesRecent.isLoading && trendingMovies.isLoading){
+    //   nprogress.start();
+    // } else {
+    //   nprogress.done()
+    // }
+  function canCacheData(fetchStatus: any) {
+    return !fetchStatus.isFetching && fetchStatus.isSuccess;
+  }
+  if (
+    canCacheData(nowShowing) &&
+    canCacheData(popularMoviesRecent) &&
+    canCacheData(trendingMovies)
+  ) {
     localStorage.setItem("nowShowing", JSON.stringify(nowShowing.data));
     localStorage.setItem("popular", JSON.stringify(popularMoviesRecent.data));
     localStorage.setItem("trending", JSON.stringify(trendingMovies.data));
-  }, []);
+  }
+  }, [nowShowing, popularMoviesRecent, trendingMovies]);
 
   return (
-    <main>
+       <main>
+      <MovieContainer
+        text='Trending Movies'
+        movie={trendingMovies.data}
+        loading={trendingMovies.isLoading}
+      />
       <ShowingInTheater
         movies={nowShowing.data}
         currentPage={currentPage}
@@ -58,11 +81,7 @@ const Home = () => {
         movie={popularMoviesRecent.data}
         loading={popularMoviesRecent.isLoading}
       />
-      <MovieContainer
-        text='Trending Movies'
-        movie={trendingMovies.data}
-        loading={trendingMovies.isLoading}
-      />
+      <Footer/>
     </main>
   );
 };
