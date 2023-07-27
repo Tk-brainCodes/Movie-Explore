@@ -9,7 +9,7 @@ import AnimatedPage from "@/app/components/Animation";
 export default function SearchMovies() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const myKey = process.env.API_KEY;
+  const myKey = process.env.NEXT_PUBLIC_API_KEY;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

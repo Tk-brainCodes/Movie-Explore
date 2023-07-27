@@ -17,13 +17,12 @@ import imdb_logo from "../../../public/image/imdb_logo.png";
 import netflix_logo from "../../../public/image/netflix_logo.png";
 import no_image from "../../../public/image/no_image.jpg";
 import Link from "next/link";
-import PlayCircleFilledWhiteOutlinedIcon from "@mui/icons-material/PlayCircleFilledWhiteOutlined";
 
 export default async function MovieDetails({ params }: { params: string }) {
   const { movies }: any = params;
   const imagePath = "https://image.tmdb.org/t/p/original";
   const res = await axios.get(
-    `https://api.themoviedb.org/3/movie/${movies}?api_key=${process.env.API_KEY}`
+    `https://api.themoviedb.org/3/movie/${movies}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
 
   const movie = await res.data;
@@ -154,7 +153,7 @@ export default async function MovieDetails({ params }: { params: string }) {
                 {movie.original_language || <Skeleton />}
               </span>
             </h2>
-            <Link href={`movies/${movie?.id}/reviews`}>
+            <Link href={`${movie?.id}/reviews`}>
               <button className='p-1 w-[100px] flex h-fit text-justify justify-center text-xs bg-slate-500 rounded-full text-white'>
                 reviews
               </button>
@@ -162,7 +161,7 @@ export default async function MovieDetails({ params }: { params: string }) {
           </div>
           <div className='flex gap-3 mt-6 items-center justify-start'>
             <Link
-              href={`movies/${movie?.id}/watch`}
+              href={`${movie?.id}/watch`}
               title='watch trailer'
               className='px-2 py-2 font-semibold text-sm  flex items-center justify-around gap-3 bg-orange-500 transition ease-in-out hover:bg-orange-600 rounded-md'
             >

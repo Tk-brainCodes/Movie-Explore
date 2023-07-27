@@ -17,7 +17,7 @@ export default function MovieContainer({
 }) {
   return (
     <>
-      <div className='w-auto'>
+      <div  data-cy={`${text === "Trending Movies" ? "trending-movies" : "popular-movies"}`}  className='w-auto'>
         <h1 className='text-white  px-6 py-4 text-sm font-semibold'>
           {text ? text : ""}
         </h1>
@@ -40,16 +40,28 @@ export default function MovieContainer({
             </div>
           ) : (
             <>
-              {movie?.results?.map((movie: MovieDataProp) => (
-                <div key={movie?.id} className='snap-center flex-shrink-0'>
-                  <Movies
-                    title={movie?.title as string}
-                    movieId={movie?.id as number}
-                    poster_path={movie?.poster_path as string}
-                    backdrop_path={movie?.backdrop_path as string}
-                    release_date={movie?.release_date as string}
-                    key={movie?.id}
-                  />
+              {movie?.results?.map((movie: MovieDataProp, i: number) => (
+                <div>
+                  {text === "Trending Movies" ? (
+                    <h1 className='text-4xl mb-[10px] text-orange-500 font-black'>
+                      {i + 1}
+                      <span className='ml-[2px] font-normal text-white text-xs'>
+                        {movie?.title as string}
+                      </span>
+                    </h1>
+                  ) : (
+                    ""
+                  )}
+                  <div key={movie?.id} className='snap-center flex-shrink-0'>
+                    <Movies
+                      title={movie?.title as string}
+                      movieId={movie?.id as number}
+                      poster_path={movie?.poster_path as string}
+                      backdrop_path={movie?.backdrop_path as string}
+                      release_date={movie?.release_date as string}
+                      key={movie?.id}
+                    />
+                  </div>
                 </div>
               )) || <Skeleton count={10} height={400} />}
             </>

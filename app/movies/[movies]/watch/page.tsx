@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import ReactPlayer from "react-player/lazy";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import "react-loading-skeleton/dist/skeleton.css"; 
 import { VideoProp } from "@/app/types/movie-type";
-import LoadingSpiner from "@/app/components/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import AnimatedPage from "@/app/components/Animation";
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'; 
 
 export default function WatchVideo({ params }: { params: string }) {
-  const mykey = process.env.API_KEY;
+  const mykey = process.env.NEXT_PUBLIC_API_KEY;
   const { movies }: any = params;
   const router = useRouter();
 
@@ -28,7 +29,14 @@ export default function WatchVideo({ params }: { params: string }) {
   });
 
   useEffect(() => {
-    localStorage.setItem("video", JSON.stringify(movieVideo.data));
+    if(movieVideo.isLoading){
+      nprogress.start();
+    } else {
+      nprogress.done();
+    }
+    if (!movieVideo.isFetching && movieVideo.isSuccess){
+      localStorage.setItem("video", JSON.stringify(movieVideo.data));
+    }
   });
 
   return (

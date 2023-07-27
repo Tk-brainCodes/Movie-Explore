@@ -9,7 +9,7 @@ import LoadingSpiner from "./LoadingSpinner";
 
 const CustomMovieById = ({ movie_id }: { movie_id: number }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const myKey = process.env.API_KEY;
+  const myKey = process.env.NEXT_PUBLIC_API_KEY;
   const similarMovies = useQuery({
     queryKey: ["similarMovies"],
     queryFn: () =>

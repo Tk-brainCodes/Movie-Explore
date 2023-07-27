@@ -16,7 +16,7 @@ export default function CustomMovieCard({
   loading,
 }: any) {
   return (
-    <>
+    <div data-cy={`${title === "Showing in theatres" ? "showing-in-theatres" : ""}`}>
       <h1 className='flex  px-6 py-4 gap-4 items-center text-white text-sm  mt-[2em] font-semibold'>
         {title}
         <button
@@ -85,6 +85,6 @@ export default function CustomMovieCard({
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }

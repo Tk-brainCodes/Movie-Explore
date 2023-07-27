@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { db } from "@/firebase.config";
 import { getDoc, doc, getDocs, collection } from "firebase/firestore";
 import { Toaster } from "react-hot-toast";
+import ModalComponent from "../components/Modal";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
@@ -34,7 +35,7 @@ const Movies = ({
     // @ts-ignore
     user,
     // @ts-ignore
-    notifySuccess,
+    getBookmarksFromFirebaseDB,
     // @ts-ignore
     notifyError,
   } = useContext(GlobalContext);
@@ -47,15 +48,13 @@ const Movies = ({
     return !!doesMovieExist;
   });
   const [exists, setExists] = useState(false);
+  const [open, setOpen] = useState(false);
+  
+    const onCloseModal = () => setOpen(false);
 
-  const checkIfItemExists = async () => {
-    const bookmarkCol = collection(db, `${user?.uid as string}`);
-    const bookmarkSnapshot = await getDocs(bookmarkCol);
-    const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
-
-    const itemExists = bookmarkList.some((item) => item.id === movieId);
-    setExists(itemExists);
-  };
+    const onOpenModal = () => {
+      setOpen(true);
+    };
 
   const movieData = {
     title: title,
@@ -63,41 +62,47 @@ const Movies = ({
     poster_path: poster_path,
     date: release_date,
     background: backdrop_path,
+  }; 
+
+  const checkIfItemExists = async () => {
+      const bookmarkCol = collection(db, `${user?.uid as string}`);
+      const bookmarkSnapshot = await getDocs(bookmarkCol);
+      const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
+      const itemExists = bookmarkList.some((item) => item.id === movieId);
+      setExists(itemExists);
   };
 
-  const handleAddBookmarked = () => {
-    if (exists && isBookmarked == true) {
-      try {
-        removeMovieFromBookmarked(movieId);
-        setBookmarked((prev) => !prev);
-        notifySuccess();
-      } catch (error: any) {
-        notifyError();
-        console.log(error);
-      }
+  const handleBookmarksIfExists =  () => {
+    if(user){
+      removeMovieFromBookmarked(movieId);
+      setBookmarked((prev) => !prev);
     } else {
-      try {
-        addMovieToBookmarked(movieData);
-        setBookmarked((prev) => !prev);
-        notifySuccess();
-      } catch (error: any) {
-        notifyError();
-        console.log(error);
-      }
+      onOpenModal()
     }
   };
+
+   const handleBookmarksIfNotExists =  () => {
+     if(user){
+      addMovieToBookmarked(movieData);
+      setBookmarked((prev) => !prev);
+     } else {
+      onOpenModal()
+     }
+  };
+
 
   const handleSeenMovie = () => {
     addRecentMovieVisit(movieData);
   };
 
   useEffect(() => {
+    getBookmarksFromFirebaseDB()
     setSavedBookmarks(bookmarked);
     checkIfItemExists();
-  }, [bookmarked, exists]);
+  }, [exists, bookmarked, movieId, bookmarked]);
 
   return (
-    <div className=' h-1/3'>
+    <div className=' h-1/5'>
       <Toaster />
       <AnimatedPage>
         <>
@@ -120,9 +125,9 @@ const Movies = ({
             <button
               title='bookmark movie'
               className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
-              onClick={handleAddBookmarked}
+              onClick={exists ? handleBookmarksIfExists : handleBookmarksIfNotExists}
             >
-              {exists ? (
+              {exists && user !== undefined ? (
                 <BookmarkAddedIcon className='text-green-500' />
               ) : (
                 <BookmarkBorderOutlinedIcon />
@@ -145,6 +150,7 @@ const Movies = ({
           </div>
         </>
       </AnimatedPage>
+      <ModalComponent open={open} onCloseModal={onCloseModal}/>
     </div>
   );
 };

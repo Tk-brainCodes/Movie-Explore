@@ -4,13 +4,14 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import LoadingSpiner from "../components/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import Movies from "../movies/Movies";
 import AnimatedPage from "@/app/components/Animation";
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'; 
 
 export default function ComingSoon() {
-  const myKey = process.env.API_KEY;
+  const myKey = process.env.NEXT_PUBLIC_API_KEY; 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const router = useRouter();
 
@@ -26,7 +27,14 @@ export default function ComingSoon() {
   });
 
   useEffect(() => {
-    localStorage.setItem("comingSoon", JSON.stringify(comingSoon.data));
+    if(comingSoon.isLoading){
+      nprogress.start();
+    } else {
+      nprogress.done();
+    }
+ if (!comingSoon.isFetching && comingSoon.isSuccess) {
+      localStorage.setItem('comingSoon', JSON.stringify(comingSoon.data));
+    }
   }, []);
 
   return (

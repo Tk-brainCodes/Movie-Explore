@@ -13,8 +13,6 @@ export default function Sidenav() {
   const {
     bookmarked,
     // @ts-ignore
-    toggleSidebar,
-    // @ts-ignore
     isSidebarOpen,
     // @ts-ignore
     sidebarRef,
@@ -47,9 +45,10 @@ export default function Sidenav() {
   };
 
   useEffect(() => {
+    getBookmarksFromFirebaseDB()
     const item = JSON.parse(localStorage.getItem("myBookmarks") as string);
     setBookmarkLength(item);
-  }, []);
+  }, [bookmarked]);
   const length = bookmarkLength?.length as number;
 
   return (
@@ -63,6 +62,7 @@ export default function Sidenav() {
           }`}
           aria-label='Sidebar'
           ref={sidebarRef}
+          data-cy='sidenav'
         >
           <motion.ul
             initial='closed'
@@ -99,8 +99,11 @@ export default function Sidenav() {
                             <>
                               {title}
                               {bookmarkLength ? (
-                                <span className='w-[25px] h-[25px] flex px-2 items-center justify-center ml-[6.5em]  -mt-[19px] absolute bg-red-500 rounded-full text-white'>
-                                  <p className='text-xs text-white font-semibold'> 
+                                <span
+                                  data-cy='bookmark-length'
+                                  className='w-[25px] h-[25px] flex px-2 items-center justify-center ml-[6.5em]  -mt-[19px] absolute bg-red-500 rounded-full text-white'
+                                >
+                                  <p className='text-xs text-white font-semibold'>
                                     {length ? length : ""}
                                   </p>
                                 </span>

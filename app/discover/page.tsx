@@ -16,7 +16,7 @@ export default function Discover() {
     queryFn: () =>
       axios
         .get(
-          `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`
+          `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
         )
         .then((res) => res.data),
     refetchInterval: 1000,

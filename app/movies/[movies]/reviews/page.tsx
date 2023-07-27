@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
@@ -12,9 +12,11 @@ import { SelectedProp, ReviewProps } from "@/app/types/movie-type";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import LoadingSpiner from "@/app/components/LoadingSpinner";
 import AnimatedPage from "@/app/components/Animation";
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'; 
 
 export default function ReviewPage({ params }: { params: string }) {
-  const mykey = process.env.API_KEY;
+  const mykey = process.env.NEXT_PUBLIC_API_KEY;
   const { movies }: any = params;
   const imagePath = "https://image.tmdb.org/t/p/original";
   const [open, setOpen] = useState(false);
@@ -39,7 +41,14 @@ export default function ReviewPage({ params }: { params: string }) {
   });
 
   useEffect(() => {
-    localStorage.setItem("reviews", JSON.stringify(movierReview.data));
+    if(movierReview.isLoading){
+      nprogress.start()
+    } else {
+      nprogress.done()
+    }
+    if(!movierReview.isFetching && movierReview.isSuccess){
+        localStorage.setItem("reviews", JSON.stringify(movierReview.data));
+    }
   });
 
   return (

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { IconPointFilled } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query"; 
 import { MovieCardProps } from "@/app/types/movie-type";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -12,6 +12,8 @@ import axios from "axios";
 import LoadingSpiner from "@/app/components/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import AnimatedPage from "@/app/components/Animation";
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'; 
 
 const MovieDetails = ({ params }: { params: string }) => {
   const { genreName, genreId }: any = params;
@@ -21,14 +23,21 @@ const MovieDetails = ({ params }: { params: string }) => {
     queryFn: () =>
       axios
         .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_KEY}&with_genres=${genreId}`
+          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&with_genres=${genreId}`
         )
         .then((res) => res.data),
     refetchInterval: 1000,
   });
 
   useEffect(() => {
-    localStorage.setItem("genreMovies", JSON.stringify(genreMovies.data));
+    if(genreMovies.isLoading){
+      nprogress.start();
+    } else {
+      nprogress.done()
+    }
+    if(!genreMovies.isFetching &&  genreMovies.isSuccess){
+        localStorage.setItem("genreMovies", JSON.stringify(genreMovies.data));
+    }
   }, []);
 
   const imagePath = "https://image.tmdb.org/t/p/original";

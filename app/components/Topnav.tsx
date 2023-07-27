@@ -4,6 +4,7 @@ import { GlobalContext } from "../context/Globalcontext";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { Modal } from "react-responsive-modal";
+import ModalComponent from "./Modal";
 import LoginForm from "./Login";
 import SignupForm from "./Signup";
 import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
@@ -12,29 +13,23 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import no_image from "../../public/image/no_image.jpg";
 import Link from "next/link";
 import Image from "next/image";
+import SuccessModal from "./SigninSuccess";
 
-const tabData = [
-  {
-    tab: "Log in",
-    id: 1,
-    tabName: "tab1",
-    component: LoginForm,
-  },
-  {
-    tab: "Sign up",
-    id: 2,
-    tabName: "tab2",
-    component: SignupForm,
-  },
-];
 
-export default function TopNav() {
+const TopNav = () => {
   // @ts-ignore
   const { toggleSidebar, user, logout } = useContext(GlobalContext);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>("tab1");
-  console.log(user);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  console.log("user:", user)
+
+  localStorage.setItem("user", JSON.stringify(user))
+
+  const toggleDropdown = () => {
+    setDropdownOpen((prevState) => !prevState);
+  };
 
   const handleLogout = async () => {
     try {
@@ -45,10 +40,6 @@ export default function TopNav() {
   };
 
   const onCloseModal = () => setOpen(false);
-
-  useEffect(() => {
-    setActiveTab(activeTab);
-  }, [activeTab]);
 
   const onOpenModal = () => {
     setOpen(true);
@@ -66,6 +57,7 @@ export default function TopNav() {
     <div className='w-full h-20 border-b-2 border-slate-800	 px-4 py-6 flex items-center justify-between fixed bg-gray-900 z-40'>
       <div className='text-white mb-6 flex items-center justify-center gap-2 h-4 mt-5'>
         <button
+          data-cy='sidebar-toggle-button'
           data-drawer-target='default-sidebar'
           data-drawer-toggle='default-sidebar'
           aria-controls='default-sidebar'
@@ -102,6 +94,7 @@ export default function TopNav() {
                 : "text-white"
             }`}
             href='/search'
+            data-cy='search-icon'
           >
             <motion.span
               whileHover={{ scale: 1.1 }}
@@ -116,17 +109,48 @@ export default function TopNav() {
           </Link>
           {user && (
             <Image
-              src={user?.photoUR || no_image}
-              alt={user?.email || ""}
+              src={user.photoURL ? user.photoURL : ""}
+              alt={user?.email ? user?.email : ""}
               width={500}
               height={500}
-              className='w-[40px] h-[40px] rounded-full  via-cyan-900 to-stone-500 bg-gradient-to-r'
-              // loading='lazy'
+              className='w-[40px] h-[40px] rounded-full text-white via-cyan-900 to-stone-500 bg-gradient-to-r max-sm:cursor-pointer'
+              data-cy='user-profile-image'
               priority
+              onClick={toggleDropdown}
             />
           )}
+
+          {isDropdownOpen && (
+            <div
+              data-cy='user-dropdown'
+              className='absolute mt-[13em] w-[200px] lg:hidden bg-blue-800 mr-[3em] rounded-md px-4 py-4'
+            >
+              <h2 className='text-white mb-[20px]'>{user.displayName}</h2>
+              <button
+                className='flex gap-1 items-center justify-center hover:text-white hover:bg-orange-400 transition rounded-full ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white '
+                onClick={handleIsLoggedOut}
+                data-cy='login-logout-button'
+              >
+                <LogoutOutlinedIcon className='text-xs' />
+                <motion.span
+                  whileHover={{ scale: 1.1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10,
+                  }}
+                >
+                  {user ? "Log out" : "Log in"}
+                </motion.span>
+              </button>
+            </div>
+          )}
+
           <button
-            className='flex gap-1 items-center justify-center hover:text-white hover:bg-orange-400 transition ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white rounded-full'
+            data-cy='login-logout-button'
+            className={`flex gap-1 items-center rounded-full justify-center hover:text-white hover:bg-orange-400 transition ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white max-sm:hidden ${
+              !user ? "max-md:block" : "max-md:hidden"
+            }`}
             onClick={handleIsLoggedOut}
           >
             <LogoutOutlinedIcon className='text-xs' />
@@ -143,48 +167,11 @@ export default function TopNav() {
           </button>
         </ul>
         <div>
-          <Modal
-            open={open}
-            onClose={onCloseModal}
-            center
-            classNames={{
-              overlay: "customOverlayDark",
-              modal: "customModal",
-            }}
-          >
-            <>
-              <div className='flex items-center justify-around mb-[20px]'>
-                {tabData.map((tabs) => (
-                  <button
-                    key={tabs.id}
-                    onClick={() => setActiveTab(tabs.tabName)}
-                    className={
-                      activeTab === `${tabs.tabName}`
-                        ? "px-4 text-sm py-4 bg-blue-600 text-white rounded-full"
-                        : "px-2 py-2 text-sm text-slate-600 rounded-full"
-                    }
-                  >
-                    {tabs.tab}
-                  </button>
-                ))}
-              </div>
-              <div className=''>
-                <>
-                  {tabData.map((content) => (
-                    <div key={content.id} className='px-2 py-2'>
-                      {activeTab === content.tabName && (
-                        <>
-                          <content.component />
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </>
-              </div>
-            </>
-          </Modal>
+          <ModalComponent open={open} onCloseModal={onCloseModal} />
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default TopNav;
