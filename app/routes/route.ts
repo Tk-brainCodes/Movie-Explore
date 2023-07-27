@@ -30,7 +30,7 @@ export const sidebar_routes = [
     name: "Library",
     id: 2,
     paths: [
-      { title: "Recent", url: "/recent", id: 1, Icon: ScheduleRoundedIcon },
+      // { title: "Recent", url: "/recent", id: 1, Icon: ScheduleRoundedIcon },
       {
         title: "Bookmarked",
         url: "/bookmarked",
