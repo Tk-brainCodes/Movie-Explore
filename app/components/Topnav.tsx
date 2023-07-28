@@ -140,7 +140,7 @@ const TopNav = () => {
           <button
             data-cy='login-logout-button'
             className={`flex gap-1 items-center rounded-full justify-center hover:text-white hover:bg-orange-400 transition ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white max-sm:hidden ${
-              !user ? "max-md:block max-sm:block" : "max-md:hidden"
+              !user ? "block" : "hidden"
             }`}
             onClick={handleIsLoggedOut}
           >
