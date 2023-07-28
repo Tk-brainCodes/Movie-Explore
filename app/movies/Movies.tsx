@@ -88,13 +88,7 @@ const Movies = ({
      }
   };
 
-
-  const handleSeenMovie = () => {
-    addRecentMovieVisit(movieData);
-  };
-
   useEffect(() => {
-    getBookmarksFromFirebaseDB()
     setSavedBookmarks(bookmarked);
     checkIfItemExists();
   }, [exists, bookmarked, movieId, bookmarked]);
@@ -116,7 +110,6 @@ const Movies = ({
               height={500}
               blurDataURL={imagePath + poster_path}
               placeholder='blur'
-              onClick={handleSeenMovie}
             />
           </Link>
           <div className='flex gap-2 relative -mt-[20em] float-right px-2'>
