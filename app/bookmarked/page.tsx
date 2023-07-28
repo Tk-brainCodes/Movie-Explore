@@ -24,29 +24,18 @@ const Bookmarked = () => {
     // @ts-ignore
   } = useContext(GlobalContext);
 
-  const prevLocalStorageBookmarks = useRef(localStorageBookMarks);
-
   //TODO: Check if item exists in db, then map through the items
 
 useEffect(() => {
   getBookmarksFromFirebaseDB();
-const storedItem = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("myBookmarks") || "[]") : "";
-  if (prevLocalStorageBookmarks.current !== storedItem) {
-    setLocalStorageBookmarks(storedItem);
-  }
-  prevLocalStorageBookmarks.current = storedItem;
-}, []);
+  setBookmarked(bookmarked);
+}, [bookmarked]);
 
 const handleRemoveBookmarks = (id: number) =>{
   removeMovieFromBookmarked(id)
    location.reload()
 }
 
-
-
-  useEffect(() => {
-    setBookmarked(bookmarked);
-  }, [bookmarked]);
 
 
   return (
@@ -63,7 +52,7 @@ const handleRemoveBookmarks = (id: number) =>{
               </div>
             ) : (
               <div className='grid lg:grid-cols-4 md:grid-cols-2 max-sm:grid-cols-1  gap-6 items-center'>
-                {localStorageBookMarks?.map((movie: any) => (
+                {myBookmarked?.map((movie: any) => (
                   <div className='w-[250px] '>
                     <Link href={`movies/${movie?.id}`}>
                       <Image
