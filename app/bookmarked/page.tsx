@@ -29,7 +29,7 @@ const Bookmarked = () => {
 useEffect(() => {
   getBookmarksFromFirebaseDB();
   setBookmarked(bookmarked);
-}, [bookmarked]);
+}, [bookmarked, myBookmarked]);
 
 const handleRemoveBookmarks = (id: number) =>{
   removeMovieFromBookmarked(id)
