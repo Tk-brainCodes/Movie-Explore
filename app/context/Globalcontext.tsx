@@ -13,7 +13,6 @@ import {
   setDoc,
   getDocs,
   deleteDoc,
-  updateDoc,
 } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -45,7 +44,6 @@ export const GlobalProvider = (props: any) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [user, setUser] = useState<UserProps>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [bookmarks, setBookmarks] = useState([]);
 
 
   const notifySuccess = (message: string) => toast.success(message);
@@ -161,10 +159,6 @@ export const GlobalProvider = (props: any) => {
   };
 
 
-  // useEffect(() => {
-  //   getBookmarksFromFirebaseDB();
-  // }, [state.bookmarked, getBookmarksFromFirebaseDB]);
-
   const handleClickOutside = useCallback((event: Event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
       setIsSidebarOpen(false);
@@ -199,7 +193,7 @@ export const GlobalProvider = (props: any) => {
         addRecentMovieVisit,
         toggleSidebar,
         isSidebarOpen,
-        sidebarRef,
+        sidebarRef, 
         setIsSidebarOpen,
         signup,
         login,
@@ -210,7 +204,6 @@ export const GlobalProvider = (props: any) => {
         loading,
         notifySuccess,
         notifyError,
-        bookmarks
       }}
     >
       {props.children}

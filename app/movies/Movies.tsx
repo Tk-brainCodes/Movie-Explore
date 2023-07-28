@@ -5,7 +5,7 @@ import { GlobalContext } from "../context/Globalcontext";
 import { MovieCardProps } from "../types/movie-type";
 import { usePathname } from "next/navigation";
 import { db } from "@/firebase.config";
-import { getDoc, doc, getDocs, collection } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 import { Toaster } from "react-hot-toast";
 import ModalComponent from "../components/Modal";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
@@ -36,8 +36,6 @@ const Movies = ({
     user,
     // @ts-ignore
     getBookmarksFromFirebaseDB,
-    // @ts-ignore
-    notifyError,
   } = useContext(GlobalContext);
 
   const [savedBookmarks, setSavedBookmarks] = useState([]);

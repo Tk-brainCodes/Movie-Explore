@@ -38,7 +38,7 @@ const storedItem = typeof window !== "undefined" ? JSON.parse(localStorage.getIt
 }, []);
 
 const handleRemoveBookmarks = (id: number) =>{
-  removeMovieFromBookmarked()
+  removeMovieFromBookmarked(id)
    location.reload()
 }
 

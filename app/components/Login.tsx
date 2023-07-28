@@ -1,6 +1,6 @@
 "use client";
 "use client";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../context/Globalcontext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import GoogleButton from "react-google-button";

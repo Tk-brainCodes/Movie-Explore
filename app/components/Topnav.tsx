@@ -1,19 +1,14 @@
 "use client";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState} from "react";
 import { GlobalContext } from "../context/Globalcontext";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { Modal } from "react-responsive-modal";
 import ModalComponent from "./Modal";
-import LoginForm from "./Login";
-import SignupForm from "./Signup";
 import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import no_image from "../../public/image/no_image.jpg";
 import Link from "next/link";
 import Image from "next/image";
-import SuccessModal from "./SigninSuccess";
 
 
 const TopNav = () => {
@@ -145,7 +140,7 @@ const TopNav = () => {
           <button
             data-cy='login-logout-button'
             className={`flex gap-1 items-center rounded-full justify-center hover:text-white hover:bg-orange-400 transition ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white max-sm:hidden ${
-              !user ? "max-md:block" : "max-md:hidden"
+              !user ? "max-md:block max-sm:block" : "max-md:hidden"
             }`}
             onClick={handleIsLoggedOut}
           >

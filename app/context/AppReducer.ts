@@ -1,4 +1,3 @@
-import { PayloadAction } from "@reduxjs/toolkit";
 import { MovieDataProp } from "../types/movie-type";
 
 type Movie = Omit<
@@ -13,7 +12,7 @@ export interface BookMarkState {
 export default (state: any, action: any) => {
   switch (action.type) {
      case "ADD_MOVIE_TO_BOOKMARKED":
-      return {
+      return { 
         ...state,
         bookmarked: [action.payload, ...state.bookmarked],
       };

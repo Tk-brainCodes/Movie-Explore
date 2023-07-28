@@ -25,7 +25,7 @@ const Footer = () => {
               href='https://www.linkedin.com/in/eboreime-thankgod-34864a1b1/'
               target='_blank'
             >
-              <span className="hover:underline cursor-pointer">
+              <span className="hover:underline cursor-pointer ml-[3px]">
               Eboreime ThankGod
               </span>
             </Anchor>

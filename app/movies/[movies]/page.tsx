@@ -9,8 +9,6 @@ import {
 import { Anchor } from "@/app/components/Anchor";
 import { CountryProp } from "@/app/types/movie-type";
 import CustomMoviesById from "@/app/components/CustomMoviesById";
-import StarHalfOutlinedIcon from "@mui/icons-material/StarHalfOutlined";
-import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import imdb_logo from "../../../public/image/imdb_logo.png";

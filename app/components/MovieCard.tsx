@@ -1,8 +1,6 @@
 "use client";
-import { useContext } from "react";
 import { MovieDataProp } from "../types/movie-type";
 import Movies from "../movies/Movies";
-import LoadingSpiner from "./LoadingSpinner";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 

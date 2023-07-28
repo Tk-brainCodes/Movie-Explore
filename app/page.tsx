@@ -5,7 +5,6 @@ import MovieContainer from "./components/MovieCard";
 import ShowingInTheater from "./components/CustomMovieCard";
 import { useQuery } from "@tanstack/react-query";
 import Footer from "./components/Footer";
-import nprogress from 'nprogress';
 import 'nprogress/nprogress.css'; 
 
 
@@ -43,11 +42,6 @@ const Home = () => {
   });
 
   useEffect(() => {
-    // if(nowShowing.isLoading && popularMoviesRecent.isLoading && trendingMovies.isLoading){
-    //   nprogress.start();
-    // } else {
-    //   nprogress.done()
-    // }
   function canCacheData(fetchStatus: any) {
     return !fetchStatus.isFetching && fetchStatus.isSuccess;
   }
@@ -60,7 +54,6 @@ const Home = () => {
     typeof window !== 'undefined' ? localStorage.setItem("popular", JSON.stringify(popularMoviesRecent.data)) : "";
     typeof window !== 'undefined' ? localStorage.setItem("trending", JSON.stringify(trendingMovies.data)) : "";
   }
-
   }, [nowShowing, popularMoviesRecent, trendingMovies]);
 
   return (
