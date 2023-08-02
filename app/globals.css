@@ -27,7 +27,7 @@
     width: 100%;
   }
   .active {
-    color: orange;
+    color: #fbbe24;
     font-weight: bold;
   }
   .customModalAuth{
