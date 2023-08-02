@@ -78,7 +78,6 @@ const Home = () => {
         movie={popularMoviesRecent.data}
         loading={popularMoviesRecent.isLoading}
       />
-      <Footer />
     </main>
   );
 };
