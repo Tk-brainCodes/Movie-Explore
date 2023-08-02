@@ -48,7 +48,7 @@ const Bookmarked = () => {
     removeMovieFromBookmarked(id);
   };
 
-   if (!user) {
+   if(!user) {
     setModalOpen(true);
    } else {
     setModalOpen(false)

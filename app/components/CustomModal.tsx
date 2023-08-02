@@ -1,9 +1,5 @@
-interface CustomModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose }) => {
+const CustomModal = ({ isOpen, onClose }: {isOpen: boolean, onClose: () => void}) => {
   return (
     <>
       {isOpen && (
