@@ -3,6 +3,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { GlobalContext } from "../../context/Globalcontext";
 import Image from "next/image";
 import Link from "next/link";
+import CustomModal from "../components/CustomModal";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import LoadingSpiner from "../components/LoadingSpinner";
 
@@ -10,6 +11,9 @@ const Bookmarked = () => {
   const [myBookmarked, setBookmarked] = useState([]);
   const [localStorageBookMarks, setLocalStorageBookmarks] = useState([]);
   const imagePath = "https://image.tmdb.org/t/p/original";
+
+    const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
 
   // @ts-ignore
   const {
@@ -21,6 +25,7 @@ const Bookmarked = () => {
     // @ts-ignore
     loading,
     // @ts-ignore
+    user
   } = useContext(GlobalContext);
 
   const prevLocalStorageBookmarks = useRef(localStorageBookMarks);
@@ -45,10 +50,18 @@ const Bookmarked = () => {
 
   useEffect(() => {
     setBookmarked(bookmarked);
-  }, [bookmarked]);
+     if (!user) {
+       setModalOpen(true);
+     }
+  }, [bookmarked, user]);
+
+   const handleCloseModal = () => {
+     setModalOpen(false);
+   };
 
   return (
     <div className='w-fit'>
+      {!user && <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} />}
       <h1 className='font-semibold mb-4 text-white'>My Bookmarks</h1>
       <div>
         {loading ? (
