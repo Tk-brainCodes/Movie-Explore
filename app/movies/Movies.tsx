@@ -92,13 +92,12 @@ const Movies = ({
       <Toaster />
       <AnimatedPage>
         <div
-          onClick={() => router.push(`movies/${movieId}`)}
-          className='relative hover:translate-y-1 w-[480px] transition ease-in-out  cursor-pointer hover:scale-110 duration-300 h-[280px]'
+          className='relative hover:translate-y-1 w-[480px] transition ease-in-out  hover:scale-110 duration-300 h-[280px]'
         >
           <Image
             className={`bg-gray-300  ${
               poster_path === "" && "animate-pulse dark:bg-gray-700"
-            }   w-full h-full absolute rounded-lg object-cover bg-no-repeat  mx-0 my-0 `}
+            }   w-full h-full absolute rounded-lg  cursor-pointer object-cover bg-no-repeat  mx-0 my-0 `}
             src={imagePath + poster_path}
             alt={title}
             loading='lazy'
@@ -106,6 +105,7 @@ const Movies = ({
             height={500}
             blurDataURL={imagePath + poster_path}
             placeholder='blur'
+            onClick={() => router.push(`movies/${movieId}`)}
           />
           <div className='px-4 py-4 rounded-lg bg-gradient-to-b from-transparent to-black bg-opacity-50  absolute h-[200px] w-full inset-x-0 bottom-0 text-white '>
             <div className='mt-[3em]'>
