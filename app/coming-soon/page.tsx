@@ -60,9 +60,6 @@ export default function ComingSoon() {
           >
             <IconChevronRight color='white' size={20} />
           </button>
-          <div className='py-2 px-3 bg-slate-400 rounded-full text-white'>
-            Page {currentPage}
-          </div>
         </h1>
         <AnimatedPage>
           <div className='flex px-6 py-4 flex-row overflow-x-auto space-x-8 no-scrollbar h-[400px] w-screen'>
