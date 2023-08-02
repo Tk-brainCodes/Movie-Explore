@@ -3,6 +3,7 @@ import "./globals.css";
 import { Montserrat } from "@next/font/google";
 import Sidenav from "./components/Sidenav";
 import TopNav from "./components/Topnav";
+import Footer from "./components/Footer";
 import QueryProvider from "./appContext";
 
 const monstserrat = Montserrat({
@@ -28,7 +29,7 @@ export default function RootLayout({
       ></link>
       <head />
       <body
-        className={`${monstserrat.className} bg-gray-900 w-full overflow-x-hidden`}
+        className={`${monstserrat.className} bg-[#121212]	 w-full overflow-x-hidden`}
       >
         <QueryProvider>
           <TopNav />
@@ -36,6 +37,7 @@ export default function RootLayout({
             <Sidenav />
             <div className={`px-4 py-4 mt-[5em]`}>{children}</div>
           </div>
+          <Footer/>
         </QueryProvider>
       </body>
     </html>
