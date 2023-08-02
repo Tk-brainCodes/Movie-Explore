@@ -45,8 +45,7 @@ export default function MovieContainer({
             </div>
           ) : (
             <>
-              {movie?.results?.map((movie: MovieDataProp, i: number) => (
-                <div>
+              {movie?.results?.map((movie: MovieDataProp) => (
                   <div key={movie?.id} className='snap-center flex-shrink-0'>
                     <Movies
                       title={movie?.title as string}
@@ -58,7 +57,6 @@ export default function MovieContainer({
                       key={movie?.id}
                     />
                   </div>
-                </div>
               )) || <Skeleton count={10} height={400} />}
             </>
           )}
