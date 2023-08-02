@@ -4,6 +4,7 @@ import axios from "axios";
 import MovieContainer from "./components/MovieCard";
 import ShowingInTheater from "./components/CustomMovieCard";
 import { useQuery } from "@tanstack/react-query";
+import { MovieDataProp } from "@/types/movie-type";
 import Footer from "./components/Footer";
 import 'nprogress/nprogress.css'; 
 
@@ -11,6 +12,8 @@ import 'nprogress/nprogress.css';
 const Home = () => {
   const myKey = process.env.NEXT_PUBLIC_API_KEY;
   const [currentPage, setCurrentPage] = useState<number>(2);
+  const imagePath = "https://image.tmdb.org/t/p/original";
+
 
   const popularMoviesRecent = useQuery({
     queryKey: ["popularMovies"],
@@ -57,7 +60,7 @@ const Home = () => {
   }, [nowShowing, popularMoviesRecent, trendingMovies]);
 
   return (
-       <main>
+    <main>
       <MovieContainer
         text='Trending Movies'
         movie={trendingMovies.data}
@@ -75,7 +78,7 @@ const Home = () => {
         movie={popularMoviesRecent.data}
         loading={popularMoviesRecent.isLoading}
       />
-      <Footer/>
+      <Footer />
     </main>
   );
 };

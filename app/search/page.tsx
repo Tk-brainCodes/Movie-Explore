@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { MovieCardProps } from "../types/movie-type";
+import { MovieCardProps } from "../../types/movie-type";
 import ResultCard from "../components/ResultCard";
 import axios from "axios";
 import AnimatedPage from "@/app/components/Animation";
-
 
 export default function SearchMovies() {
   const [query, setQuery] = useState("");
@@ -31,8 +30,12 @@ export default function SearchMovies() {
   };
 
   useEffect(() => {
-    typeof window !== 'undefined' ? localStorage.setItem("results", JSON.stringify(results)) : "";
-    typeof window !== 'undefined' ? localStorage.setItem("query", JSON.stringify(query)) : "";
+    typeof window !== "undefined"
+      ? localStorage.setItem("results", JSON.stringify(results))
+      : "";
+    typeof window !== "undefined"
+      ? localStorage.setItem("query", JSON.stringify(query))
+      : "";
   }, [query, results]);
 
   return (
@@ -45,32 +48,32 @@ export default function SearchMovies() {
         className='bg-white h-14 w-full px-12 rounded-lg focus:outline-none hover:cursor-pointer'
       />
 
-     <AnimatedPage>
-            {results.length > 0 ? (
-        <div>
-          <h1 className='text-white mt-4 font-bold'>
-            Showing{" "}
-            <span className='font-semibold text-orange-400'>
-              {results?.length}
-            </span>{" "}
-            results
-          </h1>
-          <div className='grid grid-cols-fluid gap-6 items-center'>
-            {results.map((movie: MovieCardProps) => (
-              <div key={movie?.id}>
-                <ResultCard movie={movie} />
-              </div>
-            ))}
+      <AnimatedPage>
+        {results.length > 0 ? (
+          <div>
+            <h1 className='text-white mt-4 font-bold'>
+              Showing{" "}
+              <span className='font-semibold text-orange-400'>
+                {results?.length}
+              </span>{" "}
+              results
+            </h1>
+            <div className='grid grid-cols-fluid gap-6 items-center'>
+              {results.map((movie: MovieCardProps) => (
+                <div key={movie?.id}>
+                  <ResultCard movie={movie} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className='block mt-[20px]'>
-          <h1 className='text-white font-semibold  text-2xl'>
-            Sorry no <span className='text-orange-400'>movies</span> :(
-          </h1>
-        </div>
-      )}
-     </AnimatedPage>
+        ) : (
+          <div className='block mt-[20px]'>
+            <h1 className='text-white font-semibold  text-2xl'>
+              Sorry no <span className='text-orange-400'>movies</span> :(
+            </h1>
+          </div>
+        )}
+      </AnimatedPage>
     </div>
   );
 }

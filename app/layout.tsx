@@ -34,7 +34,7 @@ export default function RootLayout({
           <TopNav />
           <div className='grid'>
             <Sidenav />
-            <div className={`px-8 py-4 mt-[5em] max-sm:ml-2`}>{children}</div>
+            <div className={`px-4 py-4 mt-[5em]`}>{children}</div>
           </div>
         </QueryProvider>
       </body>

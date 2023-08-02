@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { MovieCardProps } from "../types/movie-type";
+import { MovieCardProps } from "../../types/movie-type";
 
 export default function ResultCard({ movie }: { movie: MovieCardProps }) {
   const imagePath = "https://image.tmdb.org/t/p/original";

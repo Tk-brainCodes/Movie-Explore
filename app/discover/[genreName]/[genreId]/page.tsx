@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { IconPointFilled } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query"; 
-import { MovieCardProps } from "@/app/types/movie-type";
+import { useQuery } from "@tanstack/react-query";
+import { MovieCardProps } from "@/types/movie-type";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Link from "next/link";
@@ -12,8 +12,8 @@ import axios from "axios";
 import LoadingSpiner from "@/app/components/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import AnimatedPage from "@/app/components/Animation";
-import nprogress from 'nprogress';
-import 'nprogress/nprogress.css'; 
+import nprogress from "nprogress";
+import "nprogress/nprogress.css";
 
 const MovieDetails = ({ params }: { params: string }) => {
   const { genreName, genreId }: any = params;
@@ -31,14 +31,16 @@ const MovieDetails = ({ params }: { params: string }) => {
   });
 
   useEffect(() => {
-    if(genreMovies.isLoading){
+    if (genreMovies.isLoading) {
       nprogress.start();
     } else {
-      nprogress.done()
+      nprogress.done();
     }
-  if (!genreMovies.isFetching &&  genreMovies.isSuccess) {
-        typeof window !== 'undefined' ? localStorage.setItem("genreMovies", JSON.stringify(genreMovies.data)) : "";
-  }
+    if (!genreMovies.isFetching && genreMovies.isSuccess) {
+      typeof window !== "undefined"
+        ? localStorage.setItem("genreMovies", JSON.stringify(genreMovies.data))
+        : "";
+    }
   }, []);
 
   const imagePath = "https://image.tmdb.org/t/p/original";

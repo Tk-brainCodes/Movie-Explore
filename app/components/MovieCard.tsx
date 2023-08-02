@@ -1,5 +1,6 @@
 "use client";
-import { MovieDataProp } from "../types/movie-type";
+import { MovieDataProp } from "../../types/movie-type";
+import { Element } from "react-scroll";
 import Movies from "../movies/Movies";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -15,7 +16,13 @@ export default function MovieContainer({
 }) {
   return (
     <>
-      <div  data-cy={`${text === "Trending Movies" ? "trending-movies" : "popular-movies"}`}  className='w-auto'>
+      <Element
+        data-cy={`${
+          text === "Trending Movies" ? "trending-movies" : "popular-movies"
+        }`}
+        name={text === "Trending Movies" ? "trending" : "popular"}
+        className='w-auto h-[100vh]'
+      >
         <h1 className='text-white  px-6 py-4 text-sm font-semibold'>
           {text ? text : ""}
         </h1>
@@ -40,16 +47,6 @@ export default function MovieContainer({
             <>
               {movie?.results?.map((movie: MovieDataProp, i: number) => (
                 <div>
-                  {text === "Trending Movies" ? (
-                    <h1 className='text-4xl mb-[10px] text-orange-500 font-black'>
-                      {i + 1}
-                      <span className='ml-[2px] font-normal text-white text-xs'>
-                        {movie?.title as string}
-                      </span>
-                    </h1>
-                  ) : (
-                    ""
-                  )}
                   <div key={movie?.id} className='snap-center flex-shrink-0'>
                     <Movies
                       title={movie?.title as string}
@@ -65,7 +62,7 @@ export default function MovieContainer({
             </>
           )}
         </div>
-      </div>
+      </Element>
     </>
   );
 }

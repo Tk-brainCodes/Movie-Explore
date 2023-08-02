@@ -22,12 +22,15 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { auth, db } from "../../firebase.config";
+import { auth, db } from "../firebase.config";
 import toast from "react-hot-toast";
 import { UserProps } from "../types/firbase-user-types";
 import AppReducer from "./AppReducer";
 
-let localStorageBookmarks = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("myBookmarks") as string) : "";
+let localStorageBookmarks =
+  typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("myBookmarks") as string)
+    : "";
 
 const initialState = {
   bookmarked: localStorageBookmarks ? localStorageBookmarks : [],
@@ -44,7 +47,6 @@ export const GlobalProvider = (props: any) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [user, setUser] = useState<UserProps>();
   const [loading, setLoading] = useState<boolean>(true);
-
 
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
@@ -107,36 +109,37 @@ export const GlobalProvider = (props: any) => {
     }
   };
 
-
   //get all bookmarks from firebase
-   const getBookmarksFromFirebaseDB = useCallback(async () => {
-     const getBookmarkItems = async (db: any) => {
-       const bookmarkCol = collection(db, `${user?.uid as string}`);
-       const bookmarkSnapshot = await getDocs(bookmarkCol);
-       const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
-       return bookmarkList;
-     };
+  const getBookmarksFromFirebaseDB = useCallback(async () => {
+    const getBookmarkItems = async (db: any) => {
+      const bookmarkCol = collection(db, `${user?.uid as string}`);
+      const bookmarkSnapshot = await getDocs(bookmarkCol);
+      const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
+      return bookmarkList;
+    };
 
-     try {
-       let allBookmarks = await getBookmarkItems(db);
-      dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED"})
+    try {
+      let allBookmarks = await getBookmarkItems(db);
+      dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED" });
       //  dispatch({ type: "ADD_MOVIE_TO_BOOKMARKED", payload: allBookmarks });
       state.bookmarked = allBookmarks;
       if (allBookmarks.length) {
-         const bookmarkStateString = JSON.stringify(state.bookmarked);
-        typeof window !== 'undefined' ? localStorage.setItem("myBookmarks", bookmarkStateString) : "" ;
-       }
-       setLoading(false);
-     } catch (error: any) {
-       dispatch({
-         type: "GET_BOOKMARK_ERROR",
-         payload:
-           error.response && error.response.data.message
-             ? error.response.data.message
-             : error.message,
-       });
-     }
-   }, [state.bookmarked, db, dispatch])
+        const bookmarkStateString = JSON.stringify(state.bookmarked);
+        typeof window !== "undefined"
+          ? localStorage.setItem("myBookmarks", bookmarkStateString)
+          : "";
+      }
+      setLoading(false);
+    } catch (error: any) {
+      dispatch({
+        type: "GET_BOOKMARK_ERROR",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  }, [state.bookmarked, db, dispatch]);
 
   const addRecentMovieVisit = (movie: any) => {
     dispatch({ type: "ADD_RECENT_MOVIE", payload: movie });
@@ -157,7 +160,6 @@ export const GlobalProvider = (props: any) => {
     const googleAuthProvider = new GoogleAuthProvider();
     return signInWithPopup(auth, googleAuthProvider);
   };
-
 
   const handleClickOutside = useCallback((event: Event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -193,7 +195,7 @@ export const GlobalProvider = (props: any) => {
         addRecentMovieVisit,
         toggleSidebar,
         isSidebarOpen,
-        sidebarRef, 
+        sidebarRef,
         setIsSidebarOpen,
         signup,
         login,

@@ -1,15 +1,15 @@
 "use client";
-import { useContext, useState} from "react";
-import { GlobalContext } from "../context/Globalcontext";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../context/Globalcontext";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { Link } from "react-scroll";
+import { useRouter } from "next/navigation";
 import ModalComponent from "./Modal";
 import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import Link from "next/link";
 import Image from "next/image";
-
 
 const TopNav = () => {
   // @ts-ignore
@@ -17,6 +17,7 @@ const TopNav = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const router = useRouter();
 
   const toggleDropdown = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -53,7 +54,7 @@ const TopNav = () => {
           data-drawer-toggle='default-sidebar'
           aria-controls='default-sidebar'
           type='button'
-          className={`inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
+          className={`hidden max-sm:inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
           onClick={toggleSidebar}
         >
           <span className='sr-only'>Open sidebar</span>
@@ -71,20 +72,51 @@ const TopNav = () => {
             ></path>
           </svg>
         </button>
-        <Link href='/'>
+        <button onClick={() => router.push("/")}>
           <SlideshowOutlinedIcon />
           MovieExpore
-        </Link>
+        </button>
+      </div>
+      <div className='max-sm:hidden'>
+        <ul className='flex text-white text-sm gap-3 items-center justify-between'>
+          <li className='cursor-pointer hover:text-orange-800'>
+            <Link to='trending' 
+            offset={-110}
+            spy={true}
+             smooth={true} duration={500}>
+              trending
+            </Link>
+          </li>
+          <li className='cursor-pointer hover:text-orange-800'>
+            <Link
+              to='theatres'
+              offset={-110}
+              spy={true}
+              smooth={true}
+              duration={500}
+            >
+              in theatres
+            </Link>
+          </li>
+          <li className='cursor-pointer hover:text-orange-800'>
+            <Link to='popular'
+                  offset={-110}
+      spy={true}
+             smooth={true} duration={500}>
+              popular
+            </Link>
+          </li>
+        </ul>
       </div>
       <div className='w-auto px-4 py-4'>
         <ul className='flex items-center justify-center gap-5 font-semibold text-sm text-slate-500'>
-          <Link
+          <button
             className={`${
               pathname === "/search"
                 ? "text-orange-400 font-semibold"
                 : "text-white"
             }`}
-            href='/search'
+            onClick={() => router.push("/search")}
             data-cy='search-icon'
           >
             <motion.span
@@ -97,7 +129,7 @@ const TopNav = () => {
             >
               <SearchOutlinedIcon />
             </motion.span>
-          </Link>
+          </button>
           {user && (
             <Image
               src={user.photoURL ? user.photoURL : ""}
@@ -164,5 +196,4 @@ const TopNav = () => {
     </div>
   );
 };
-
 export default TopNav;

@@ -1,8 +1,8 @@
 "use client";
-import { sidebar_routes } from "../routes/route";
+import { sidebar_routes } from "../../routes/route";
 import { usePathname } from "next/navigation";
 import { useContext, useState, useEffect } from "react";
-import { GlobalContext } from "../context/Globalcontext";
+import { GlobalContext } from "../../context/Globalcontext";
 import { motion } from "framer-motion";
 import "react-responsive-modal/styles.css";
 import Link from "next/link";

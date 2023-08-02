@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useContext } from "react";
-import { GlobalContext } from "../context/Globalcontext";
+import { GlobalContext } from "../../context/Globalcontext";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Link from "next/link";
 import Image from "next/image";

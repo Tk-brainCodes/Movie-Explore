@@ -7,7 +7,7 @@ import {
   IconStarFilled,
 } from "@tabler/icons-react";
 import { Anchor } from "@/app/components/Anchor";
-import { CountryProp } from "@/app/types/movie-type";
+import { CountryProp } from "@/types/movie-type";
 import CustomMoviesById from "@/app/components/CustomMoviesById";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";

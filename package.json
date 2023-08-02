@@ -44,6 +44,7 @@
     "react-player": "^2.12.0",
     "react-redux": "^8.0.5",
     "react-responsive-modal": "^6.4.1",
+    "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
     "react-toggle-dark-mode": "^1.1.1",
     "redux-persist": "^6.0.0",
@@ -54,6 +55,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.194",
     "@types/nprogress": "^0.2.0",
+    "@types/react-scroll": "^1.8.7",
     "autoprefixer": "^10.4.13",
     "babel-eslint": "^10.1.0",
     "cypress": "^12.12.0",

@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useContext, useState, useEffect } from "react";
-import { GlobalContext } from "../context/Globalcontext";
-import { MovieCardProps } from "../types/movie-type";
+import { GlobalContext } from "../../context/Globalcontext";
+import { MovieCardProps } from "../../types/movie-type";
 import { usePathname } from "next/navigation";
 import { db } from "@/firebase.config";
 import { getDocs, collection } from "firebase/firestore";
@@ -22,11 +22,8 @@ const Movies = ({
   backdrop_path,
 }: MovieCardProps) => {
   const imagePath = "https://image.tmdb.org/t/p/original";
-  const pathnanme = usePathname();
 
   const {
-    // @ts-ignore
-    addRecentMovieVisit,
     // @ts-ignore
     addMovieToBookmarked,
     // @ts-ignore
@@ -34,8 +31,6 @@ const Movies = ({
     bookmarked,
     // @ts-ignore
     user,
-    // @ts-ignore
-    getBookmarksFromFirebaseDB,
   } = useContext(GlobalContext);
 
   const [savedBookmarks, setSavedBookmarks] = useState([]);
@@ -47,12 +42,12 @@ const Movies = ({
   });
   const [exists, setExists] = useState(false);
   const [open, setOpen] = useState(false);
-  
-    const onCloseModal = () => setOpen(false);
 
-    const onOpenModal = () => {
-      setOpen(true);
-    };
+  const onCloseModal = () => setOpen(false);
+
+  const onOpenModal = () => {
+    setOpen(true);
+  };
 
   const movieData = {
     title: title,
@@ -60,34 +55,34 @@ const Movies = ({
     poster_path: poster_path,
     date: release_date,
     background: backdrop_path,
-  }; 
-
-  const checkIfItemExists = async () => {
-      const bookmarkCol = collection(db, `${user?.uid as string}`);
-      const bookmarkSnapshot = await getDocs(bookmarkCol);
-      const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
-      const itemExists = bookmarkList.some((item) => item.id === movieId);
-      setExists(itemExists);
   };
 
-  const handleBookmarksIfExists =  () => {
-    if(user){
+  const checkIfItemExists = async () => {
+    const bookmarkCol = collection(db, `${user?.uid as string}`);
+    const bookmarkSnapshot = await getDocs(bookmarkCol);
+    const bookmarkList = bookmarkSnapshot.docs.map((doc) => doc.data());
+    const itemExists = bookmarkList.some((item) => item.id === movieId);
+    setExists(itemExists);
+  };
+
+  const handleBookmarksIfExists = () => {
+    if (user) {
       removeMovieFromBookmarked(movieId);
       setBookmarked((prev) => !prev);
     } else {
-      onOpenModal()
+      onOpenModal();
     }
   };
 
-   const handleBookmarksIfNotExists =  () => {
-     if(user){
+  const handleBookmarksIfNotExists = () => {
+    if (user) {
       addMovieToBookmarked(movieData);
       setBookmarked((prev) => !prev);
-     } else {
-      onOpenModal()
-     }
+    } else {
+      onOpenModal();
+    }
   };
-
+ 
   useEffect(() => {
     setSavedBookmarks(bookmarked);
     checkIfItemExists();
@@ -116,7 +111,9 @@ const Movies = ({
             <button
               title='bookmark movie'
               className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
-              onClick={exists ? handleBookmarksIfExists : handleBookmarksIfNotExists}
+              onClick={
+                exists ? handleBookmarksIfExists : handleBookmarksIfNotExists
+              }
             >
               {exists && user !== undefined ? (
                 <BookmarkAddedIcon className='text-green-500' />
@@ -124,7 +121,7 @@ const Movies = ({
                 <BookmarkBorderOutlinedIcon />
               )}
             </button>
-            <Link 
+            <Link
               href={`movies/${movieId}/watch`}
               title='watch trailer'
               className='text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full'
@@ -141,7 +138,7 @@ const Movies = ({
           </div>
         </>
       </AnimatedPage>
-      <ModalComponent open={open} onCloseModal={onCloseModal}/>
+      <ModalComponent open={open} onCloseModal={onCloseModal} />
     </div>
   );
 };

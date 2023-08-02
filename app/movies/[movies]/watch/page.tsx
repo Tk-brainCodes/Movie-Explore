@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import ReactPlayer from "react-player/lazy";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css"; 
-import { VideoProp } from "@/app/types/movie-type";
+import "react-loading-skeleton/dist/skeleton.css";
+import { VideoProp } from "@/types/movie-type";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import AnimatedPage from "@/app/components/Animation";
-import nprogress from 'nprogress';
-import 'nprogress/nprogress.css'; 
+import nprogress from "nprogress";
+import "nprogress/nprogress.css";
 
 export default function WatchVideo({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
@@ -30,14 +30,16 @@ export default function WatchVideo({ params }: { params: string }) {
   });
 
   useEffect(() => {
-    if(movieVideo.isLoading){
+    if (movieVideo.isLoading) {
       nprogress.start();
     } else {
       nprogress.done();
     }
-  if (!movieVideo.isFetching && movieVideo.isSuccess) {
-      typeof window !== 'undefined' ? localStorage.setItem("video", JSON.stringify(movieVideo.data)) : "";
-  }
+    if (!movieVideo.isFetching && movieVideo.isSuccess) {
+      typeof window !== "undefined"
+        ? localStorage.setItem("video", JSON.stringify(movieVideo.data))
+        : "";
+    }
   });
 
   return (

@@ -3,7 +3,7 @@ import axios from "axios";
 import { IconMovie, IconPointFilled } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ListProp } from "../types/movie-type";
+import { ListProp } from "../../types/movie-type";
 import Link from "next/link";
 import LoadingSpiner from "../components/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
@@ -34,7 +34,7 @@ export default function Discover() {
         Genres <IconPointFilled size={15} color='grey' />
         <p className='text-sm text-gray-500	'>
           Discover movies from different genres
-        </p> 
+        </p>
       </h1>
       <AnimatedPage>
         <div className='grid gap-6 grid-cols-fluid'>

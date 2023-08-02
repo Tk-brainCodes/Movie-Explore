@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
@@ -8,12 +8,12 @@ import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import no_image from "../../../../public/image/no_image.jpg";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import { SelectedProp, ReviewProps } from "@/app/types/movie-type";
+import { SelectedProp, ReviewProps } from "@/types/movie-type";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import LoadingSpiner from "@/app/components/LoadingSpinner";
 import AnimatedPage from "@/app/components/Animation";
-import nprogress from 'nprogress';
-import 'nprogress/nprogress.css'; 
+import nprogress from "nprogress";
+import "nprogress/nprogress.css";
 
 export default function ReviewPage({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
@@ -42,17 +42,16 @@ export default function ReviewPage({ params }: { params: string }) {
   });
 
   useEffect(() => {
-    if(movierReview.isLoading){
-      nprogress.start()
+    if (movierReview.isLoading) {
+      nprogress.start();
     } else {
-      nprogress.done()
+      nprogress.done();
     }
-  if (
-    !movierReview.isFetching &&
-    movierReview.isSuccess
-  ) {
-      typeof window !== 'undefined' ? localStorage.setItem("reviews", JSON.stringify(movierReview.data)) : "";
-  }
+    if (!movierReview.isFetching && movierReview.isSuccess) {
+      typeof window !== "undefined"
+        ? localStorage.setItem("reviews", JSON.stringify(movierReview.data))
+        : "";
+    }
   });
 
   return (

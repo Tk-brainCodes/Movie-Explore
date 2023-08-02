@@ -11,8 +11,8 @@ export interface BookMarkState {
 
 export default (state: any, action: any) => {
   switch (action.type) {
-     case "ADD_MOVIE_TO_BOOKMARKED":
-      return { 
+    case "ADD_MOVIE_TO_BOOKMARKED":
+      return {
         ...state,
         bookmarked: [action.payload, ...state.bookmarked],
       };

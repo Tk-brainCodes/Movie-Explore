@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect, useContext, useRef } from "react";
-import { GlobalContext } from "../context/Globalcontext";
+import { GlobalContext } from "../../context/Globalcontext";
 import Image from "next/image";
 import Link from "next/link";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import LoadingSpiner from "../components/LoadingSpinner";
-
 
 const Bookmarked = () => {
   const [myBookmarked, setBookmarked] = useState([]);
@@ -28,28 +27,25 @@ const Bookmarked = () => {
 
   //TODO: Check if item exists in db, then map through the items
 
-useEffect(() => {
-  getBookmarksFromFirebaseDB();
-  const storedItem =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("myBookmarks") || "[]")
-      : "";
-  if (prevLocalStorageBookmarks.current !== storedItem) {
-    setLocalStorageBookmarks(storedItem);
-  }
-  prevLocalStorageBookmarks.current = storedItem;
-}, [localStorageBookMarks]);
+  useEffect(() => {
+    getBookmarksFromFirebaseDB();
+    const storedItem =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("myBookmarks") || "[]")
+        : "";
+    if (prevLocalStorageBookmarks.current !== storedItem) {
+      setLocalStorageBookmarks(storedItem);
+    }
+    prevLocalStorageBookmarks.current = storedItem;
+  }, [localStorageBookMarks]);
 
-const handleRemoveBookmarks = (id: number) =>{
-     removeMovieFromBookmarked(id)
-}
-
-
+  const handleRemoveBookmarks = (id: number) => {
+    removeMovieFromBookmarked(id);
+  };
 
   useEffect(() => {
     setBookmarked(bookmarked);
   }, [bookmarked]);
-
 
   return (
     <div className='w-fit'>
@@ -83,7 +79,7 @@ const handleRemoveBookmarks = (id: number) =>{
                       <button
                         title='bookmark movie'
                         className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
-                        onClick={() =>handleRemoveBookmarks(movie?.id)}
+                        onClick={() => handleRemoveBookmarks(movie?.id)}
                       >
                         <BookmarkAddedIcon className='text-green-500' />
                       </button>
