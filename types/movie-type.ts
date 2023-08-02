@@ -23,6 +23,7 @@ export interface MovieCardProps {
   release_date: string;
   backdrop_path: string;
   id?: number;
+  movieRating?: number;
 }
 
 export interface CountryProp {
