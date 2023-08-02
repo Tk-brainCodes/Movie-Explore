@@ -22,7 +22,7 @@ export default function CustomMovieCard({
         title === "Showing in theatres" ? "showing-in-theatres" : ""
       }`}
       name="theatres"
-      className="w-auto h-[100vh]"
+      className="w-auto"
     >
       <h1 className='flex  px-6 py-4 gap-4 items-center text-white text-sm  mt-[2em] font-semibold'>
         {title}
@@ -42,7 +42,7 @@ export default function CustomMovieCard({
           <IconChevronRight color='white' size={20} />
         </button>
         <div className='py-2 px-3 bg-slate-400 rounded-full text-white'>
-          Page {currentPage}
+          {currentPage}
         </div>
       </h1>
 
@@ -67,7 +67,7 @@ export default function CustomMovieCard({
           </>
         ) : (
           <>
-            {movies?.length === 0 ? (
+            {movies?.results?.length === 0 ? (
               <div className='grid'>
                 <h2 className='text-slate-300 text-2xl font-normal block'>
                   <VideocamOffOutlinedIcon className='w-[100px] h-[100px] ml-[40px]' />
