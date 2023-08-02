@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../../context/Globalcontext";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
@@ -9,6 +9,7 @@ import ModalComponent from "./Modal";
 import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Image from "next/image";
 
 const TopNav = () => {
@@ -17,6 +18,7 @@ const TopNav = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [bookmarkLength, setBookmarkLength] = useState([]);
   const router = useRouter();
 
   const toggleDropdown = () => {
@@ -45,8 +47,17 @@ const TopNav = () => {
     }
   };
 
+  useEffect(() => {
+    const item =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("myBookmarks") as string)
+        : "";
+    setBookmarkLength(item);
+  }, []);
+  const length = bookmarkLength?.length as number;
+
   return (
-    <div className='w-full h-20 border-b-2 border-slate-800	 px-4 py-6 flex items-center justify-between fixed bg-gray-900 z-40'>
+    <div className='w-full h-20 firefox:bg-opacity-90 bg-opacity-30 backdrop-filter backdrop-blur-lg bg-[#121212] px-4 py-6 flex items-center justify-between fixed z-40'>
       <div className='text-white mb-6 flex items-center justify-center gap-2 h-4 mt-5'>
         <button
           data-cy='sidebar-toggle-button'
@@ -72,13 +83,16 @@ const TopNav = () => {
             ></path>
           </svg>
         </button>
-        <button onClick={() => router.push("/")}>
+        <button
+          className='ml-[2em] flex item-center gap-1'
+          onClick={() => router.push("/")}
+        >
           <SlideshowOutlinedIcon />
-          MovieExpore
+          Movie<span className='text-orange-400 font-semibold'>Expore</span>
         </button>
       </div>
       <div className='max-sm:hidden'>
-        <ul className='flex text-white text-sm gap-3 items-center justify-between'>
+        <ul className='flex max-sm:hidden text-white text-xs gap-6 items-center justify-between'>
           <li className='cursor-pointer hover:text-orange-400'>
             <Link
               to='trending'
@@ -86,8 +100,9 @@ const TopNav = () => {
               spy={true}
               smooth={true}
               duration={500}
+              activeClass="active"
             >
-              trending
+              Trending
             </Link>
           </li>
           <li className='cursor-pointer hover:text-orange-400'>
@@ -97,8 +112,9 @@ const TopNav = () => {
               spy={true}
               smooth={true}
               duration={500}
+              activeClass="active"
             >
-              in theatres
+              In theatres
             </Link>
           </li>
           <li className='cursor-pointer hover:text-orange-400'>
@@ -108,24 +124,61 @@ const TopNav = () => {
               spy={true}
               smooth={true}
               duration={500}
+              activeClass="active"
             >
-              popular
+              Popular
             </Link>
           </li>
           <li
             onClick={() => router.push("/discover")}
             className={`${
-              pathname === "discover"
+              pathname === "/discover"
                 ? "text-orange-400 font-semibold"
                 : "text-white"
-            }cursor-pointer hover:text-orange-800`}
+            } cursor-pointer hover:text-orange-400`}
           >
-            popular
+            Discover
+          </li>
+          <li
+            onClick={() => router.push("/coming-soon")}
+            className={`${
+              pathname === "/coming-soon"
+                ? "text-orange-400 font-semibold"
+                : "text-white"
+            } cursor-pointer hover:text-orange-400`}
+          >
+            Coming Soon
           </li>
         </ul>
       </div>
       <div className='w-auto px-4 py-4'>
         <ul className='flex items-center justify-center gap-5 font-semibold text-sm text-slate-500'>
+          <button
+            className={`${
+              pathname === "/bookmarked"
+                ? "text-orange-400 font-semibold"
+                : "text-white"
+            } block max-sm:hidden relative`}
+            onClick={() => router.push("/bookmarked")}
+            data-cy='bookmark-icon'
+          >
+            <motion.span
+              whileHover={{ scale: 1.1 }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 10,
+              }}
+            >
+              <BookmarkBorderIcon />
+            </motion.span>
+            {length && (
+              <span className='absolute -top-[8px] -right-[10px] w-5 h-5 bg-red-500 rounded-full flex items-center font-normal justify-center text-white text-xs'>
+                {length}
+              </span>
+            )}
+          </button>
+
           <button
             className={`${
               pathname === "/search"
@@ -164,13 +217,12 @@ const TopNav = () => {
               data-cy='user-dropdown'
               className='absolute mt-[13em] w-[200px] lg:hidden bg-blue-800 mr-[3em] rounded-md px-4 py-4'
             >
-              <h2 className='text-white mb-[20px]'>{user.displayName}</h2>
+              <h2 className='text-white mb-[20px]'>{user?.displayName}</h2>
               <button
                 className='flex gap-1 items-center justify-center hover:text-white hover:bg-orange-400 transition rounded-full ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white '
                 onClick={handleIsLoggedOut}
                 data-cy='login-logout-button'
               >
-                <LogoutOutlinedIcon className='text-xs' />
                 <motion.span
                   whileHover={{ scale: 1.1 }}
                   transition={{
@@ -187,12 +239,11 @@ const TopNav = () => {
 
           <button
             data-cy='login-logout-button'
-            className={`flex gap-1 items-center rounded-full justify-center hover:text-white hover:bg-orange-400 transition ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white max-sm:hidden ${
+            className={`flex gap-1 items-center rounded-full justify-center hover:text-white hover:bg-orange-400 transition ease-in-out text-xs bottom-0 text-slate-600 px-2 py-2 bg-white max-sm:${
               !user ? "block" : "hidden"
             }`}
             onClick={handleIsLoggedOut}
           >
-            <LogoutOutlinedIcon className='text-xs' />
             <motion.span
               whileHover={{ scale: 1.1 }}
               transition={{
