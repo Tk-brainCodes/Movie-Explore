@@ -41,9 +41,6 @@ export default function CustomMovieCard({
         >
           <IconChevronRight color='white' size={20} />
         </button>
-        <div className='py-2 px-3 bg-slate-400 rounded-full text-white'>
-          {currentPage}
-        </div>
       </h1>
 
       <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto scroll-smooth flex-row overflow-x-auto space-x-8 no-scrollbar h-[400px] w-[100vw]'>
