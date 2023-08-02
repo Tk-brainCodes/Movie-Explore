@@ -79,15 +79,18 @@ const TopNav = () => {
       </div>
       <div className='max-sm:hidden'>
         <ul className='flex text-white text-sm gap-3 items-center justify-between'>
-          <li className='cursor-pointer hover:text-orange-800'>
-            <Link to='trending' 
-            offset={-110}
-            spy={true}
-             smooth={true} duration={500}>
+          <li className='cursor-pointer hover:text-orange-400'>
+            <Link
+              to='trending'
+              offset={-110}
+              spy={true}
+              smooth={true}
+              duration={500}
+            >
               trending
             </Link>
           </li>
-          <li className='cursor-pointer hover:text-orange-800'>
+          <li className='cursor-pointer hover:text-orange-400'>
             <Link
               to='theatres'
               offset={-110}
@@ -98,13 +101,26 @@ const TopNav = () => {
               in theatres
             </Link>
           </li>
-          <li className='cursor-pointer hover:text-orange-800'>
-            <Link to='popular'
-                  offset={-110}
-      spy={true}
-             smooth={true} duration={500}>
+          <li className='cursor-pointer hover:text-orange-400'>
+            <Link
+              to='popular'
+              offset={-110}
+              spy={true}
+              smooth={true}
+              duration={500}
+            >
               popular
             </Link>
+          </li>
+          <li
+            onClick={() => router.push("/discover")}
+            className={`${
+              pathname === "discover"
+                ? "text-orange-400 font-semibold"
+                : "text-white"
+            }cursor-pointer hover:text-orange-800`}
+          >
+            popular
           </li>
         </ul>
       </div>
@@ -132,7 +148,7 @@ const TopNav = () => {
           </button>
           {user && (
             <Image
-              src={user.photoURL ? user.photoURL : ""}
+              src={user?.photoURL ? user?.photoURL : ""}
               alt={user?.email ? user?.email : ""}
               width={500}
               height={500}
