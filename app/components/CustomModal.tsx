@@ -15,7 +15,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose }) => {
                 Always login to view latest bookmarks
               </p>
               <button
-                className="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+                className="mt-4 px-4 py-2 rounded-full bg-orange-500 text-white  hover:bg-blue-600 focus:outline-none"
                 onClick={onClose}
               >
                 Close
