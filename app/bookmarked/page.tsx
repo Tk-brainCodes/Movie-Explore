@@ -48,11 +48,14 @@ const Bookmarked = () => {
     removeMovieFromBookmarked(id);
   };
 
+   if (!user) {
+    setModalOpen(true);
+   } else {
+    setModalOpen(false)
+   }
+
   useEffect(() => {
     setBookmarked(bookmarked);
-     if (!user) {
-       setModalOpen(true);
-     }
   }, [bookmarked, user]);
 
    const handleCloseModal = () => {

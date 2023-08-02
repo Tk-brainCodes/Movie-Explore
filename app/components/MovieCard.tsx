@@ -21,7 +21,7 @@ export default function MovieContainer({
           text === "Trending Movies" ? "trending-movies" : "popular-movies"
         }`}
         name={text === "Trending Movies" ? "trending" : "popular"}
-        className='w-auto h-[100vh]'
+        className='w-auto h-[50vh]'
       >
         <h1 className='text-white  px-6 py-4 text-sm font-semibold'>
           {text ? text : ""}
