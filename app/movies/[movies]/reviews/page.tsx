@@ -12,8 +12,7 @@ import { SelectedProp, ReviewProps } from "@/types/movie-type";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import LoadingSpiner from "@/app/components/LoadingSpinner";
 import AnimatedPage from "@/app/components/Animation";
-import nprogress from "nprogress";
-import "nprogress/nprogress.css";
+import NoReviews from "@/app/components/NoReviews";
 
 export default function ReviewPage({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
@@ -42,11 +41,6 @@ export default function ReviewPage({ params }: { params: string }) {
   });
 
   useEffect(() => {
-    if (movierReview.isLoading) {
-      nprogress.start();
-    } else {
-      nprogress.done();
-    }
     if (!movierReview.isFetching && movierReview.isSuccess) {
       typeof window !== "undefined"
         ? localStorage.setItem("reviews", JSON.stringify(movierReview.data))
@@ -72,9 +66,7 @@ export default function ReviewPage({ params }: { params: string }) {
         <div className='grid grid-cols-fluid gap-6 mt-[20px] items-center'>
           <>
             {movierReview?.data?.length === 0 && (
-              <h1 className='text-white text-sm font-semibold mt-[20px]'>
-                No reviews
-              </h1>
+              <NoReviews/>
             )}
             {movierReview.isLoading ? (
               <LoadingSpiner text={"Reviews"} />

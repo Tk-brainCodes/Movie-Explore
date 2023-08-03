@@ -9,8 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { VideoProp } from "@/types/movie-type";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import AnimatedPage from "@/app/components/Animation";
-import nprogress from "nprogress";
-import "nprogress/nprogress.css";
+import NoVideos from "@/app/components/NoMovies";
 
 export default function WatchVideo({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
@@ -30,11 +29,6 @@ export default function WatchVideo({ params }: { params: string }) {
   });
 
   useEffect(() => {
-    if (movieVideo.isLoading) {
-      nprogress.start();
-    } else {
-      nprogress.done();
-    }
     if (!movieVideo.isFetching && movieVideo.isSuccess) {
       typeof window !== "undefined"
         ? localStorage.setItem("video", JSON.stringify(movieVideo.data))
@@ -58,6 +52,7 @@ export default function WatchVideo({ params }: { params: string }) {
           Videos
         </h1>
         <div className='w-fit px-2 py-2 '>
+          {movieVideo?.data?.length === 0 && <NoVideos/>}
           {movieVideo.isLoading ? (
             <div
               role='status'
