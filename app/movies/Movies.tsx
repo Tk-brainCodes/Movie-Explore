@@ -113,7 +113,7 @@ const Movies = ({
               </p>
               <div className='flex items-center justify-between'>
                 <h3 className='flex gap-1 items-center text-sm'>
-                  <StarIcon className="text-yellow-400 text-base" />
+                  <StarIcon style={{fontSize: "16px"}} className="text-orange-600" />
                   {movieRating?.toFixed(1)} rating
                 </h3>
                 <section className='flex gap-2'>

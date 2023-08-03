@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { MovieCardProps } from "../../types/movie-type";
-import ResultCard from "../components/ResultCard";
+import ResultCard from "../components/ResultCard"; 
 import axios from "axios";
 import AnimatedPage from "@/app/components/Animation";
 

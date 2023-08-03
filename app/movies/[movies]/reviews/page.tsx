@@ -55,13 +55,16 @@ export default function ReviewPage({ params }: { params: string }) {
   });
 
   return (
-    <>
+    <div className='px-6 py-6'>
       <h1 className='text-white flex gap-2 items-center px-2 py-2 font-semibold'>
         <button
           onClick={() => router.back()}
           className='w-[30px] h-[30px] px-2 py-2 flex items-center text-xs	 justify-center bg-orange-400 rounded-full cursor-pointer text-white'
         >
-          <ArrowBackIosNewOutlinedIcon className='text-xs	 font-semibold' />
+          <ArrowBackIosNewOutlinedIcon
+            style={{fontSize: "16px"}}
+            className='font-semibold'
+          />
         </button>
         Reviews
       </h1>
@@ -153,6 +156,6 @@ export default function ReviewPage({ params }: { params: string }) {
           </>
         </div>
       </AnimatedPage>
-    </>
+    </div>
   );
 }

@@ -24,18 +24,19 @@ export default function Discover() {
   });
 
   return (
-    <div className="px-6 py-6 mb-[20px]">
+    <div className='px-6 py-6 mb-[20px]'>
       <h1 className='text-white gap-3 text-lg tracking-tight flex items-center  text-center  mt-[1em] mb-[1em] font-semibold'>
         <button
           onClick={() => router.back()}
           className='w-[30px] h-[30px] px-2 py-2 flex items-center justify-center bg-orange-400 rounded-full cursor-pointer text-white'
         >
-          <ArrowBackIosNewOutlinedIcon className='text-xs font-semibold' />
+          <ArrowBackIosNewOutlinedIcon
+            style={{fontSize: "16px"}}
+            className='font-semibold'
+          />
         </button>
         Genres <IconPointFilled size={15} color='grey' />
-        <p className='text-sm text-gray-500	'>
-          Browse by genres
-        </p>
+        <p className='text-sm text-gray-500	'>Browse by genres</p>
       </h1>
       <AnimatedPage>
         <div className='grid gap-6 grid-cols-fluid'>

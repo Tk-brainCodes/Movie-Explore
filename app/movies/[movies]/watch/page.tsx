@@ -43,14 +43,17 @@ export default function WatchVideo({ params }: { params: string }) {
   });
 
   return (
-    <>
+    <div className='px-6 py-6'>
       <AnimatedPage>
         <h1 className='text-white flex gap-2 items-center font-semibold mb-[30px]'>
           <button
             onClick={() => router.back()}
             className='w-[30px] h-[30px] px-2 py-2 flex items-center justify-center bg-orange-400 rounded-full cursor-pointer text-white'
           >
-            <ArrowBackIosNewOutlinedIcon className='text-xs font-semibold' />
+            <ArrowBackIosNewOutlinedIcon
+              style={{fontSize: "16px"}}
+              className='font-semibold'
+            />
           </button>
           Videos
         </h1>
@@ -102,6 +105,6 @@ export default function WatchVideo({ params }: { params: string }) {
           )}
         </div>
       </AnimatedPage>
-    </>
+    </div>
   );
 }
