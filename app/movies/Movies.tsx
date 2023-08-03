@@ -113,7 +113,10 @@ const Movies = ({
               </p>
               <div className='flex items-center justify-between'>
                 <h3 className='flex gap-1 items-center text-sm'>
-                  <StarIcon style={{fontSize: "16px"}} className="text-orange-600" />
+                  <StarIcon
+                    style={{ fontSize: "16px" }}
+                    className='text-orange-600'
+                  />
                   {movieRating?.toFixed(1)} rating
                 </h3>
                 <section className='flex gap-2'>
@@ -128,7 +131,9 @@ const Movies = ({
                         ? handleBookmarksIfExists
                         : handleBookmarksIfNotExists
                     }
-                    className='rounded-full bg-slate-400 hover-bg-white hover:text-green-400 w-10 h-10  text-white flex items-center justify-center shadow-lg'
+                    className={`rounded-full ${
+                      exists && user !== undefined && "bg-green-400 text-white"
+                    } bg-white hover-bg-white hover:text-white hover:bg-green-400 w-10 h-10  text-green-400 flex items-center justify-center shadow-lg`}
                   >
                     {exists && user !== undefined ? (
                       <svg
