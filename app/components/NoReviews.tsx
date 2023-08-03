@@ -1,6 +1,6 @@
 "use client";
 
-import no_reviews from "../../public/image/no-reviews.png";
+import no_reviews from "../../public/image/no_reviews.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
