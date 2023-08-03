@@ -12,9 +12,8 @@ const NoReviews = () => {
         <Image
           src={no_reviews}
           alt='empty-bookmark-mail'
-          width={300}
+          width={500}
           height={500}
-          className='w-[300px] h-[400px]'
         />
         <p className='text-3xl text-white'>Sorry no reviews</p>
         <a
