@@ -91,7 +91,7 @@ const Movies = ({
     <div className='h-1/5'>
       <Toaster />
       <AnimatedPage>
-        <div className='relative hover:translate-y-1 w-[480px] transition ease-in-out  hover:scale-110 duration-300 h-[280px]'>
+        <div className='relative hover:translate-y-1 w-[480px] max-sm:w-[350px] transition ease-in-out  hover:scale-110 duration-300 h-[280px]'>
           <Image
             className={`bg-gray-300  ${
               poster_path === "" && "animate-pulse dark:bg-gray-700"
