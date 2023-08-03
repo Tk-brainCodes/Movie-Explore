@@ -24,6 +24,7 @@ export interface MovieCardProps {
   backdrop_path: string;
   id?: number;
   movieRating?: number;
+  vote_average?: number;
 }
 
 export interface CountryProp {

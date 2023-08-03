@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import ModalComponent from "../components/Modal";
 import Image from "next/image";
 import AnimatedPage from "@/app/components/Animation";
-import imdb_small from "../../public/image/imdb-small.png";
+import StarIcon from "@mui/icons-material/Star";
 
 const Movies = ({
   title,
@@ -91,9 +91,7 @@ const Movies = ({
     <div className='h-1/5'>
       <Toaster />
       <AnimatedPage>
-        <div
-          className='relative hover:translate-y-1 w-[480px] transition ease-in-out  hover:scale-110 duration-300 h-[280px]'
-        >
+        <div className='relative hover:translate-y-1 w-[480px] transition ease-in-out  hover:scale-110 duration-300 h-[280px]'>
           <Image
             className={`bg-gray-300  ${
               poster_path === "" && "animate-pulse dark:bg-gray-700"
@@ -114,14 +112,8 @@ const Movies = ({
                 {release_date?.substring(0, 4)}
               </p>
               <div className='flex items-center justify-between'>
-                <h3 className='flex gap-2 items-center text-sm'>
-                  <Image
-                    src={imdb_small}
-                    alt='imdb icon'
-                    width={100}
-                    height={50}
-                    className='w-[50px] h-[40px]'
-                  />
+                <h3 className='flex gap-1 items-center text-sm'>
+                  <StarIcon className="text-yellow-400 text-base" />
                   {movieRating?.toFixed(1)} rating
                 </h3>
                 <section className='flex gap-2'>

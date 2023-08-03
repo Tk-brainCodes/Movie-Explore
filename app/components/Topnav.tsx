@@ -3,7 +3,8 @@ import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../../context/Globalcontext";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { Link } from "react-scroll";
+import { Link as LinkTo } from "react-scroll";
+import Link from 'next/link'
 import { useRouter } from "next/navigation";
 import ModalComponent from "./Modal";
 import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
@@ -94,7 +95,7 @@ const TopNav = () => {
       <div className='max-sm:hidden'>
         <ul className='flex max-sm:hidden text-white text-xs gap-6 items-center justify-between'>
           <li className='cursor-pointer hover:text-orange-400'>
-            <Link
+            <LinkTo
               to='trending'
               offset={-110}
               spy={true}
@@ -103,10 +104,10 @@ const TopNav = () => {
               activeClass="active"
             >
               Trending
-            </Link>
+            </LinkTo>
           </li>
           <li className='cursor-pointer hover:text-orange-400'>
-            <Link
+            <LinkTo
               to='theatres'
               offset={-110}
               spy={true}
@@ -115,10 +116,10 @@ const TopNav = () => {
               activeClass="active"
             >
               In theatres
-            </Link>
+            </LinkTo>
           </li>
           <li className='cursor-pointer hover:text-orange-400'>
-            <Link
+            <LinkTo
               to='popular'
               offset={-110}
               spy={true}
@@ -127,10 +128,10 @@ const TopNav = () => {
               activeClass="active"
             >
               Popular
-            </Link>
+            </LinkTo>
           </li>
-          <li
-            onClick={() => router.push("/discover")}
+       <Link href="/discover">
+           <li
             className={`${
               pathname === "/discover"
                 ? "text-orange-400 font-semibold"
@@ -139,8 +140,9 @@ const TopNav = () => {
           >
             Discover
           </li>
-          <li
-            onClick={() => router.push("/coming-soon")}
+       </Link>
+         <Link href="/search">
+           <li
             className={`${
               pathname === "/coming-soon"
                 ? "text-orange-400 font-semibold"
@@ -149,6 +151,7 @@ const TopNav = () => {
           >
             Coming Soon
           </li>
+         </Link>
         </ul>
       </div>
       <div className='w-auto px-4 py-4'>
@@ -173,7 +176,7 @@ const TopNav = () => {
               <BookmarkBorderIcon />
             </motion.span>
             {length && (
-              <span className='absolute -top-[8px] -right-[10px] w-5 h-5 bg-red-500 rounded-full flex items-center font-normal justify-center text-white text-xs'>
+              <span className='absolute -top-[8px] -right-[10px] w-5 h-5 bg-red-600 rounded-full flex items-center font-normal justify-center text-white text-xs'>
                 {length}
               </span>
             )}

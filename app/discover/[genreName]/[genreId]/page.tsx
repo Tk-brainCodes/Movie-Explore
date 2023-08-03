@@ -12,8 +12,9 @@ import axios from "axios";
 import LoadingSpiner from "@/app/components/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import AnimatedPage from "@/app/components/Animation";
-import nprogress from "nprogress";
-import "nprogress/nprogress.css";
+import StarIcon from "@mui/icons-material/Star";
+
+
 
 const MovieDetails = ({ params }: { params: string }) => {
   const { genreName, genreId }: any = params;
@@ -31,11 +32,6 @@ const MovieDetails = ({ params }: { params: string }) => {
   });
 
   useEffect(() => {
-    if (genreMovies.isLoading) {
-      nprogress.start();
-    } else {
-      nprogress.done();
-    }
     if (!genreMovies.isFetching && genreMovies.isSuccess) {
       typeof window !== "undefined"
         ? localStorage.setItem("genreMovies", JSON.stringify(genreMovies.data))
@@ -47,7 +43,7 @@ const MovieDetails = ({ params }: { params: string }) => {
   const router = useRouter();
 
   return (
-    <>
+    <div className='px-6 py-6'>
       <h1 className='text-white text-sm font-semibold mb-[20px] flex items-center  gap-2'>
         <button
           onClick={() => router.back()}
@@ -70,7 +66,7 @@ const MovieDetails = ({ params }: { params: string }) => {
                     <Image
                       src={imagePath + movie.poster_path}
                       alt={movie?.title}
-                      className={`h-[350px] w-[250px] max-sm:w-[350px] rounded-md  bg-gray-300 ${
+                      className={`h-[350px] w-[250px] max-sm:w-[350px] bg-gray-300 ${
                         movie?.poster_path === "" &&
                         "animate-pulse dark:bg-gray-700"
                       } transition ease-in-out cursor-pointer hover:brightness-50`}
@@ -81,11 +77,16 @@ const MovieDetails = ({ params }: { params: string }) => {
                       placeholder='blur'
                     />
                   </Link>
-                  <h1 className='mt-3 text-slate-600 font-semibold tracking-tight'>
-                    {movie.title || <Skeleton />}
+                  <h1 className='mt-3 text-sm text-white font-semibold tracking-tight'>
+                    {movie?.title}
                   </h1>
-                  <p className='text-sm text-slate-400 font-normal mt-1'>
-                    {movie.release_date?.substring(0, 4) || <Skeleton />}
+                  <p className='text-sm flex gap-3 text-slate-400 font-normal mt-1'>
+                    <span>
+                      <StarIcon className='text-base text-orange-600' />{" "}
+                      {movie?.vote_average?.toFixed(1)}
+                    </span>
+                    <span>|</span> 
+                    <span> {movie?.release_date?.substring(0, 4) || <Skeleton />}</span>
                   </p>
                 </div>
               ))}
@@ -93,7 +94,7 @@ const MovieDetails = ({ params }: { params: string }) => {
           )}
         </div>
       </AnimatedPage>
-    </>
+    </div>
   );
 };
 
