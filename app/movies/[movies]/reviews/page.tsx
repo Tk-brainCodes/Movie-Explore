@@ -65,7 +65,7 @@ export default function ReviewPage({ params }: { params: string }) {
       <AnimatedPage>
         <div className='grid grid-cols-fluid gap-6 mt-[20px] items-center'>
           <>
-            {movierReview?.data?.length === 0 && (
+            {movierReview?.data?.results?.length === 0 && (
               <NoReviews/>
             )}
             {movierReview.isLoading ? (

@@ -7,14 +7,14 @@ import { useRouter } from "next/navigation";
 const NoVideos = () => {
   const router = useRouter();
   return (
-    <section className='flex items-center h-full sm:p-16 dark:bg-gray-900 dark:text-gray-100'>
+    <section className='flex items-center h-full sm:p-16 bg-[#121212]	'>
       <div className='container flex flex-col items-center justify-center px-5 mx-auto my-8 space-y-8 text-center sm:max-w-md'>
         <Image
           src={no_videos}
           alt='empty-bookmark-mail'
           width={300}
           height={500}
-          className=''
+          className='w-[200px] h-[400px]'
         />
         <p className='text-3xl'>Sorry no videos</p>
         <a

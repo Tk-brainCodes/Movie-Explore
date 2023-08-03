@@ -61,10 +61,8 @@ const Bookmarked = () => {
         <LoadingSpiner text={"bookmarks"} />
       ) : (
         <div>
-          {myBookmarked?.length === 0 ? (
-            <div>
+          {localStorageBookMarks?.length === 0 ? (
               <EmptyBookmark/>
-            </div>
           ) : (
             <div className="grid grid-cols-fluid gap-3 items-center">
               {localStorageBookMarks?.map((movie: any) => (
