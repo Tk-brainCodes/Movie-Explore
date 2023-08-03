@@ -14,9 +14,9 @@ const NoVideos = () => {
           alt='empty-bookmark-mail'
           width={300}
           height={500}
-          className='w-[200px] h-[400px]'
+          className='w-[300px] h-[400px]'
         />
-        <p className='text-3xl'>Sorry no videos</p>
+        <p className='text-3xl text-white'>Sorry no videos</p>
         <a
           rel='noopener noreferrer'
           onClick={() => router.back()}
