@@ -7,6 +7,7 @@ import { db } from "@/firebase.config";
 import { getDocs, collection } from "firebase/firestore";
 import { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import ModalComponent from "../components/Modal";
 import Image from "next/image";
 import AnimatedPage from "@/app/components/Animation";
@@ -42,6 +43,7 @@ const Movies = ({
   const [exists, setExists] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const onCloseModal = () => setOpen(false);
 
   const onOpenModal = () => {
@@ -109,7 +111,9 @@ const Movies = ({
             <div className='mt-[3em]'>
               <h1 className='font-semibold text-xl'> {title}</h1>
               <p className=' text-slate-100 mt-[10px]  font-normal text-sm'>
-                {release_date?.substring(0, 4)}
+                {pathname === "/coming-soon"
+                  ? `Release date: ${release_date}`
+                  : `${release_date?.substring(0, 4)}`}
               </p>
               <div className='flex items-center justify-between'>
                 <h3 className='flex gap-1 items-center text-sm'>
