@@ -59,8 +59,8 @@ const Bookmarked = () => {
           ) : (
             <div className='grid grid-cols-fluid gap-3 items-center max-sm:flex max-sm:justify-center max-sm:flex-col'>
               {localStorageBookMarks?.map((movie: any) => (
+              <Link href={`movies/${movie?.id}`}>
                 <div className='w-[250px]'>
-                  <Link href={`movies/${movie?.id}`}>
                     <Image
                       src={imagePath + movie?.poster_path}
                       alt={`${movie?.title || ""}`}
@@ -71,7 +71,6 @@ const Bookmarked = () => {
                       blurDataURL={imagePath + movie?.poster_path}
                       placeholder='blur'
                     />
-                  </Link>
                   <div className='flex gap-2 relative -mt-[20em] float-right px-2'>
                     <button
                       title='bookmark movie'
@@ -88,6 +87,8 @@ const Bookmarked = () => {
                     <span>{movie?.date?.substring(0, 4)}</span>
                   </p>
                 </div>
+       </Link>
+
               ))}
             </div>
           )}

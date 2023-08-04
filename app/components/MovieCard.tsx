@@ -45,7 +45,7 @@ export default function MovieContainer({
             </div>
           ) : (
             <>
-  {movie?.results?.slice(text === "Trending Movies" ? 1 : 0).map((movie: MovieDataProp) => (
+  {movie?.results?.map((movie: MovieDataProp) => (
   <div key={movie?.id} className='snap-center flex-shrink-0'>
     <Movies
       title={movie?.title as string}

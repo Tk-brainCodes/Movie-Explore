@@ -84,13 +84,14 @@ const TopNav = () => {
             ></path>
           </svg>
         </button>
+       <Link href="/">
         <button
-          className='ml-[2em] flex item-center gap-1'
-          onClick={() => router.push("/")}
+          className='ml-[2em] max-sm:ml[10px] flex item-center gap-1'
         >
           <SlideshowOutlinedIcon />
           Movie<span className='text-orange-400 font-semibold'>Expore</span>
         </button>
+       </Link>
       </div>
       <div className='max-sm:hidden'>
         <ul className='flex max-sm:hidden text-white text-xs gap-6 items-center justify-between'>
