@@ -57,9 +57,9 @@ const Bookmarked = () => {
   return (
     <div className='px-6 py-6 w-[100vw]'>
       <h1 className='font-semibold mb-[20px] text-white'>My Bookmarks</h1>
-      {loading ? (
+      {/* {loading ? (
         <LoadingSpiner text={"bookmarks"} />
-      ) : (
+      ) : ( */}
         <div>
           {myBookmarked?.length === 0 ? (
             <EmptyBookmark />
@@ -99,7 +99,6 @@ const Bookmarked = () => {
             </div>
           )}
         </div>
-      )}
     </div>
   );
 };
