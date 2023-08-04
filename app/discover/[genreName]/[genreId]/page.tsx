@@ -49,13 +49,16 @@ const MovieDetails = ({ params }: { params: string }) => {
           onClick={() => router.back()}
           className='w-[30px] h-[30px] px-2 py-2 flex items-center justify-center bg-orange-400 rounded-full cursor-pointer text-white'
         >
-          <ArrowBackIosNewOutlinedIcon  style={{fontSize: "16px"}} className=' font-semibold' />
+          <ArrowBackIosNewOutlinedIcon
+            style={{ fontSize: "16px" }}
+            className=' font-semibold'
+          />
         </button>
         Genre <IconPointFilled size={15} color='grey' />
         <p className='text-sm text-gray-500	'>{genreName}</p>
       </h1>
       <AnimatedPage>
-        <div className='grid grid-cols-fluid gap-6 items-center'>
+        <div className='grid grid-cols-fluid gap-6 items-center max-sm:flex max-sm:justify-center max-sm:flex-col'>
           {genreMovies?.isLoading ? (
             <LoadingSpiner text={"Movies"} />
           ) : (
@@ -82,11 +85,17 @@ const MovieDetails = ({ params }: { params: string }) => {
                   </h1>
                   <p className='text-sm flex gap-3 text-slate-400 font-normal mt-1'>
                     <span>
-                      <StarIcon style={{fontSize: "16px"}} className='text-orange-600' />{" "}
+                      <StarIcon
+                        style={{ fontSize: "16px" }}
+                        className='text-orange-600'
+                      />{" "}
                       {movie?.vote_average?.toFixed(1)}
                     </span>
-                    <span>|</span> 
-                    <span> {movie?.release_date?.substring(0, 4) || <Skeleton />}</span>
+                    <span>|</span>
+                    <span>
+                      {" "}
+                      {movie?.release_date?.substring(0, 4) || <Skeleton />}
+                    </span>
                   </p>
                 </div>
               ))}

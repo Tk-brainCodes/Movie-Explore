@@ -51,14 +51,14 @@ export default function SearchMovies() {
       <AnimatedPage>
         {results.length > 0 ? (
           <div>
-            <h1 className='text-white mt-4 font-light'>
+            <h1 className='text-white flex gap-4 mt-4 font-light'>
               Showing
               <span className='font-semibold text-orange-400'>
                 {results?.length}
               </span>
               results
             </h1>
-            <div className='grid grid-cols-fluid gap-3 items-center'>
+            <div className='grid grid-cols-fluid gap-3 items-center max-sm:flex max-sm:justify-center max-sm:flex-col'>
               {results.map((movie: MovieCardProps) => (
                 <div key={movie?.id}>
                   <ResultCard movie={movie} />

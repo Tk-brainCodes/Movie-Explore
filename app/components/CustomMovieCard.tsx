@@ -22,7 +22,7 @@ export default function CustomMovieCard({
         title === "Showing in theatres" ? "showing-in-theatres" : ""
       }`}
       name="theatres"
-      className="w-auto h-[82vh]"
+      className="w-auto max-sm:h-auto h-[82vh]"
     >
       <h1 className='flex  px-6 py-4 gap-4 items-center text-white text-sm  mt-[2em] font-semibold'>
         {title}

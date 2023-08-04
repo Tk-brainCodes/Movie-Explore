@@ -31,17 +31,17 @@ const Bookmarked = () => {
 
   //TODO: Check if item exists in db, then map through the items
 
-  useEffect(() => {
-    getBookmarksFromFirebaseDB();
-    const storedItem =
-      typeof window !== "undefined"
-        ? JSON.parse(localStorage.getItem("myBookmarks") || "[]")
-        : "";
-    if (prevLocalStorageBookmarks.current !== storedItem) {
-      setLocalStorageBookmarks(storedItem);
-    }
-    prevLocalStorageBookmarks.current = storedItem;
-  }, [localStorageBookMarks]);
+  // useEffect(() => {
+  //   getBookmarksFromFirebaseDB();
+  //   const storedItem =
+  //     typeof window !== "undefined"
+  //       ? JSON.parse(localStorage.getItem("myBookmarks") || "[]")
+  //       : "";
+  //   if (prevLocalStorageBookmarks.current !== storedItem) {
+  //     setLocalStorageBookmarks(storedItem);
+  //   }
+  //   prevLocalStorageBookmarks.current = storedItem;
+  // }, [localStorageBookMarks]);
 
   const handleRemoveBookmarks = (id: number) => {
     removeMovieFromBookmarked(id);
@@ -49,8 +49,9 @@ const Bookmarked = () => {
 
  
   useEffect(() => {
+    getBookmarksFromFirebaseDB();
     setBookmarked(bookmarked);
-  }, [bookmarked]);
+  }, [bookmarked, myBookmarked]);
 
  
 
@@ -61,11 +62,11 @@ const Bookmarked = () => {
         <LoadingSpiner text={"bookmarks"} />
       ) : (
         <div>
-          {localStorageBookMarks?.length === 0 ? (
-              <EmptyBookmark/>
+          {myBookmarked?.length === 0 ? (
+            <EmptyBookmark />
           ) : (
-            <div className="grid grid-cols-fluid gap-3 items-center">
-              {localStorageBookMarks?.map((movie: any) => (
+            <div className='grid grid-cols-fluid gap-3 items-center max-sm:flex max-sm:justify-center max-sm:flex-col'>
+              {myBookmarked?.map((movie: any) => (
                 <div className='w-[250px]'>
                   <Link href={`movies/${movie?.id}`}>
                     <Image
