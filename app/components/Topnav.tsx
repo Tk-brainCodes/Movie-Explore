@@ -84,14 +84,12 @@ const TopNav = () => {
             ></path>
           </svg>
         </button>
-       <Link href="/">
-        <button
-          className='ml-[2em] max-sm:ml[10px] flex item-center gap-1'
-        >
-          <SlideshowOutlinedIcon />
-          Movie<span className='text-orange-400 font-semibold'>Expore</span>
-        </button>
-       </Link>
+        <Link href='/'>
+          <button className='ml-[2em] max-sm:ml[10px] flex item-center gap-1'>
+            <SlideshowOutlinedIcon />
+            Movie<span className='text-orange-400 font-semibold'>Expore</span>
+          </button>
+        </Link>
       </div>
       <div className='max-sm:hidden'>
         <ul className='flex max-sm:hidden text-white text-xs gap-6 items-center justify-between'>
@@ -102,7 +100,7 @@ const TopNav = () => {
               spy={true}
               smooth={true}
               duration={500}
-              activeClass="active"
+              activeClass='active'
             >
               Trending
             </LinkTo>
@@ -114,7 +112,7 @@ const TopNav = () => {
               spy={true}
               smooth={true}
               duration={500}
-              activeClass="active"
+              activeClass='active'
             >
               In theatres
             </LinkTo>
@@ -126,83 +124,84 @@ const TopNav = () => {
               spy={true}
               smooth={true}
               duration={500}
-              activeClass="active"
+              activeClass='active'
             >
               Popular
             </LinkTo>
           </li>
-       <Link href="/discover">
-           <li
-            className={`${
-              pathname === "/discover"
-                ? "text-orange-400 font-semibold"
-                : "text-white"
-            } cursor-pointer hover:text-orange-400`}
-          >
-            Discover
-          </li>
-       </Link>
-         <Link href="/search">
-           <li
-            className={`${
-              pathname === "/coming-soon"
-                ? "text-orange-400 font-semibold"
-                : "text-white"
-            } cursor-pointer hover:text-orange-400`}
-          >
-            Coming Soon
-          </li>
-         </Link>
+          <Link href='/discover'>
+            <li
+              className={`${
+                pathname === "/discover"
+                  ? "text-orange-400 font-semibold"
+                  : "text-white"
+              } cursor-pointer hover:text-orange-400`}
+            >
+              Discover
+            </li>
+          </Link>
+          <Link href='/coming-soon'>
+            <li
+              className={`${
+                pathname === "/coming-soon"
+                  ? "text-orange-400 font-semibold"
+                  : "text-white"
+              } cursor-pointer hover:text-orange-400`}
+            >
+              Coming Soon
+            </li>
+          </Link>
         </ul>
       </div>
       <div className='w-auto px-4 py-4'>
         <ul className='flex items-center justify-center gap-5 font-semibold text-sm text-slate-500'>
-          <button
-            className={`${
-              pathname === "/bookmarked"
-                ? "text-orange-400 font-semibold"
-                : "text-white"
-            } block max-sm:hidden relative`}
-            onClick={() => router.push("/bookmarked")}
-            data-cy='bookmark-icon'
-          >
-            <motion.span
-              whileHover={{ scale: 1.1 }}
-              transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 10,
-              }}
+          <Link href="/bookmarked">
+            <button
+              className={`${
+                pathname === "/bookmarked"
+                  ? "text-orange-400 font-semibold"
+                  : "text-white"
+              } block max-sm:hidden relative`}
+              data-cy='bookmark-icon'
             >
-              <BookmarkBorderIcon />
-            </motion.span>
-            {length && (
-              <span className='absolute -top-[8px] -right-[10px] w-5 h-5 bg-red-600 rounded-full flex items-center font-normal justify-center text-white text-xs'>
-                {length}
-              </span>
-            )}
-          </button>
-
-          <button
-            className={`${
-              pathname === "/search"
-                ? "text-orange-400 font-semibold"
-                : "text-white"
-            }`}
-            onClick={() => router.push("/search")}
-            data-cy='search-icon'
-          >
-            <motion.span
-              whileHover={{ scale: 1.1 }}
-              transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 10,
-              }}
+              <motion.span
+                whileHover={{ scale: 1.1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 10,
+                }}
+              >
+                <BookmarkBorderIcon />
+              </motion.span>
+              {length && (
+                <span className='absolute -top-[8px] -right-[10px] w-5 h-5 bg-red-600 rounded-full flex items-center font-normal justify-center text-white text-xs'>
+                  {length}
+                </span>
+              )}
+            </button>
+          </Link>
+          <Link href='/search'>
+            <button
+              className={`${
+                pathname === "/search"
+                  ? "text-orange-400 font-semibold"
+                  : "text-white"
+              }`}
+              data-cy='search-icon'
             >
-              <SearchOutlinedIcon />
-            </motion.span>
-          </button>
+              <motion.span
+                whileHover={{ scale: 1.1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 10,
+                }}
+              >
+                <SearchOutlinedIcon />
+              </motion.span>
+            </button>
+          </Link>
           {user && (
             <Image
               src={user?.photoURL ? user?.photoURL : ""}
