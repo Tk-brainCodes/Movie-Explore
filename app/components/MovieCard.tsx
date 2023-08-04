@@ -45,19 +45,19 @@ export default function MovieContainer({
             </div>
           ) : (
             <>
-              {movie?.results?.map((movie: MovieDataProp) => (
-                  <div key={movie?.id} className='snap-center flex-shrink-0'>
-                    <Movies
-                      title={movie?.title as string}
-                      movieId={movie?.id as number}
-                      poster_path={movie?.poster_path as string}
-                      backdrop_path={movie?.backdrop_path as string}
-                      release_date={movie?.release_date as string}
-                      movieRating={movie?.vote_average as number}
-                      key={movie?.id}
-                    />
-                  </div>
-              )) || <Skeleton count={10} height={400} />}
+  {movie?.results?.slice(text === "Trending Movies" ? 1 : 0).map((movie: MovieDataProp) => (
+  <div key={movie?.id} className='snap-center flex-shrink-0'>
+    <Movies
+      title={movie?.title as string}
+      movieId={movie?.id as number}
+      poster_path={movie?.poster_path as string}
+      backdrop_path={movie?.backdrop_path as string}
+      release_date={movie?.release_date as string}
+      movieRating={movie?.vote_average as number}
+    />
+  </div>
+)) || <Skeleton count={10} height={400} />}
+
             </>
           )}
         </div>

@@ -9,7 +9,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import EmptyBookmark from "../components/EmptyBookmark";
 
 const Bookmarked = () => {
-  const [myBookmarked, setBookmarked] = useState([]);
   const [localStorageBookMarks, setLocalStorageBookmarks] = useState([]);
   const imagePath = "https://image.tmdb.org/t/p/original";
 
@@ -31,41 +30,35 @@ const Bookmarked = () => {
 
   //TODO: Check if item exists in db, then map through the items
 
-  // useEffect(() => {
-  //   getBookmarksFromFirebaseDB();
-  //   const storedItem =
-  //     typeof window !== "undefined"
-  //       ? JSON.parse(localStorage.getItem("myBookmarks") || "[]")
-  //       : "";
-  //   if (prevLocalStorageBookmarks.current !== storedItem) {
-  //     setLocalStorageBookmarks(storedItem);
-  //   }
-  //   prevLocalStorageBookmarks.current = storedItem;
-  // }, [localStorageBookMarks]);
+  useEffect(() => {
+    getBookmarksFromFirebaseDB();
+    const storedItem =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("myBookmarks") || "[]")
+        : "";
+    if (prevLocalStorageBookmarks.current !== storedItem) {
+      setLocalStorageBookmarks(storedItem);
+    }
+    prevLocalStorageBookmarks.current = storedItem;
+  }, [bookmarked, localStorageBookMarks]);
 
   const handleRemoveBookmarks = (id: number) => {
     removeMovieFromBookmarked(id);
   };
 
- 
-  useEffect(() => {
-    setBookmarked(bookmarked);
-  }, [bookmarked, myBookmarked]);
-
- 
 
   return (
     <div className='px-6 py-6 w-[100vw]'>
       <h1 className='font-semibold mb-[20px] text-white'>My Bookmarks</h1>
-      {/* {loading ? (
+      {loading ? (
         <LoadingSpiner text={"bookmarks"} />
-      ) : ( */}
+      ) : (
         <div>
-          {myBookmarked?.length === 0 ? (
+          {localStorageBookMarks?.length === 0 ? (
             <EmptyBookmark />
           ) : (
             <div className='grid grid-cols-fluid gap-3 items-center max-sm:flex max-sm:justify-center max-sm:flex-col'>
-              {myBookmarked?.map((movie: any) => (
+              {localStorageBookMarks?.map((movie: any) => (
                 <div className='w-[250px]'>
                   <Link href={`movies/${movie?.id}`}>
                     <Image
@@ -99,6 +92,7 @@ const Bookmarked = () => {
             </div>
           )}
         </div>
+      )}
     </div>
   );
 };
