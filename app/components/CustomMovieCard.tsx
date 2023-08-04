@@ -47,6 +47,9 @@ export default function CustomMovieCard({
         {loading ? (
           <>
             <SkeletonLoader />
+            <SkeletonLoader />
+            <SkeletonLoader />
+            <SkeletonLoader />
           </>
         ) : (
           <>
