@@ -6,7 +6,7 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import SkeletonLoader from "./SkeletonLoader";
-import no_result from "../../public/image/no_image.jpg";
+import no_result from "../../public/image/no-result image.gif";
 import Image from "next/image";
 
 export default function CustomMovieCard({
@@ -45,12 +45,12 @@ export default function CustomMovieCard({
 
       <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto scroll-smooth flex-row overflow-x-auto space-x-8 no-scrollbar h-[400px] w-[100vw]'>
         {loading ? (
-          <>
+          <div className="w-auto">
             <SkeletonLoader />
             <SkeletonLoader />
             <SkeletonLoader />
             <SkeletonLoader />
-          </>
+          </div>
         ) : (
           <>
             {movies?.results?.length === 0 ? (
@@ -61,7 +61,7 @@ export default function CustomMovieCard({
                     alt='no recommendations'
                     width={500}
                     height={500}
-                    className='w-[350px] height-[250px]'
+                    className='w-[250px] height-[250px]'
                   />
                   <br />
                   No {title}
