@@ -49,7 +49,6 @@ const Bookmarked = () => {
 
  
   useEffect(() => {
-    getBookmarksFromFirebaseDB();
     setBookmarked(bookmarked);
   }, [bookmarked, myBookmarked]);
 

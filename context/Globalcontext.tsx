@@ -168,6 +168,7 @@ export const GlobalProvider = (props: any) => {
   }, []);
 
   useEffect(() => {
+    getBookmarksFromFirebaseDB();
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
