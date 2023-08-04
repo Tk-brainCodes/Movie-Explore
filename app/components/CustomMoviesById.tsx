@@ -49,7 +49,7 @@ const CustomMovieById = ({ movie_id }: { movie_id: number }) => {
             movies={similarMovies.data}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            title={"Similar movies"}
+            title={"Recommended for you"}
             loading={similarMovies.isLoading}
           />
         </>
