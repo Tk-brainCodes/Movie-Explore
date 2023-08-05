@@ -45,9 +45,7 @@ export default function CustomMovieCard({
 
       <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto scroll-smooth flex-row overflow-x-auto space-x-8 no-scrollbar h-[400px] w-[100vw]'>
         {loading ? (
-          <div className="w-auto">
-            <SkeletonLoader />
-            <SkeletonLoader />
+          <div className="w-auto flex gap-3">
             <SkeletonLoader />
             <SkeletonLoader />
           </div>
