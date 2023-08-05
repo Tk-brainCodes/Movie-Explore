@@ -29,9 +29,7 @@ export default function MovieContainer({
         </h1>
         <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto flex-row overflow-x-auto space-x-8 scroll-smooth no-scrollbar h-[400px] w-[100vw]'>
           {loading ? (
-            <div className="w-auto">
-              <SkeletonLoader />
-              <SkeletonLoader />
+            <div className="w-auto flex gap-3">
               <SkeletonLoader />
               <SkeletonLoader />
             </div>
