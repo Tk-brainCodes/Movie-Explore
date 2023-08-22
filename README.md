@@ -1,38 +1,80 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a name="readme-top"></a>
 
-## Getting Started
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
 
-First, run the development server:
+<h2 align="center">MOVIE-BOOKMARK</h2>
+  <p align="center">
+   Get Latest and Trending Movies, also customize your movie profile and mark movies watched, add latest and trending movie, add movies to watch list and customize your library.
+  </p>
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#tech-stack">Tech Stack</a></li>
+    <li><a href="#development">Development</a></li>
+  </ol>
+</details>
+<br/>
+
+<div align="center">
+  <a href="https://github.com/Tk-brainCodes/Movie-Explore
+">
+    <img src="./public/image/movie-explore.png" alt="screenshot">
+       <img src="./public/image/genres.png" alt="screenshot">
+          <img src="./public/image/movie-genre.png" alt="screenshot">
+   <img src="./public/image/details.png" alt="screenshot">
+   <img src="./public/image/trailers.png" alt="screenshot">
+
+  </a>
+</div>
+<br/>
+
+<!-- TECH STACK -->
+
+## Tech Stack
+
+- **Next 13** with Typescript
+- Styled using **TailwindCSS**
+- Authentication, database using **Firebase**
+- State management using **Redux and Context-API**
+- Testing using **Cypress**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- DEVELOPMENT -->
+
+## Development
+
+<br/>
+
+1. Clone the repository
+
+```sh
+git clone https://github.com/Tk-brainCodes/Movie-Explore.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. cd into the `youtube-app` directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+cd youtube-app/
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. Install dependencies using npm
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```sh
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. Copy your `firebase config` into `.env-local` and update the variables
 
-## Learn More
+5. Start the development server
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
