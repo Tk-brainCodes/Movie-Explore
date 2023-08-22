@@ -4,7 +4,7 @@
 <br />
 <div align="center">
 
-<h2 align="center">MOVIE-BOOKMARK</h2>
+<h2 align="center">MOVIE-Explore</h2>
   <p align="center">
    Get Latest and Trending Movies, also customize your movie profile and mark movies watched, add latest and trending movie, add movies to watch list and customize your library.
   </p>
