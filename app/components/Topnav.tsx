@@ -87,7 +87,7 @@ const TopNav = () => {
         <Link href='/'>
           <button className='ml-[2em] max-sm:ml[5px] flex item-center gap-1'>
             <SlideshowOutlinedIcon />
-            Movie<span className='text-orange-400 font-semibold'>Expore</span>
+            Movie<span className='text-orange-400 font-semibold'>Explore</span>
           </button>
         </Link>
       </div>
