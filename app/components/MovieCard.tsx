@@ -24,7 +24,7 @@ export default function MovieContainer({
         name={text === "Trending Movies" ? "trending" : "popular"}
         className='w-auto max-sm:h-auto h-[82vh]'
       >
-        <h1 className='text-white  px-6 py-4 text-sm font-semibold'>
+        <h1 className='text-white  px-[3em] text-sm font-semibold'>
           {text ? text : ""}
         </h1>
         <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto flex-row overflow-x-auto space-x-8 scroll-smooth no-scrollbar h-[400px] w-[100vw]'>

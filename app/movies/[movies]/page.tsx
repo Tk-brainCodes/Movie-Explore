@@ -19,10 +19,9 @@ import no_image from "../../../public/image/no_image.jpg";
 import Link from "next/link";
 
 export default async function MovieDetails({ params }: { params: string }) {
+  const imagePath = "https://image.tmdb.org/t/p/original";
   const { movies }: any = params;
   let movieId = movies === "%5Bmovies%5D" ? 447277 : movies;
-
-  const imagePath = "https://image.tmdb.org/t/p/original";
 
   const res = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`

@@ -22,9 +22,9 @@ export default function CustomMovieCard({
         title === "Showing in theatres" ? "showing-in-theatres" : ""
       }`}
       name='theatres'
-      className='w-auto relative p-4 max-sm:h-auto h-[82vh]'
+      className='w-auto relative  max-sm:h-auto h-[82vh]'
     >
-      <h1 className='flex  px-6 py-4 gap-4 items-center text-white text-sm  mt-[2em] font-semibold'>
+      <h1 className='flex  px-[3em] gap-4 items-center text-white text-sm  mt-[2em] font-semibold'>
         {title}
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
