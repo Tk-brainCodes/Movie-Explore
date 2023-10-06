@@ -43,9 +43,17 @@ export default async function MovieDetails({ params }: { params: string }) {
   });
 
   return (
-    <div style={{backgroundImage: `url(${imagePath + movie?.poster_path})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", position: "relative", 
-  overflow: "hidden",}} className='w-[100vw] -ml-[2em]'>
-        <div className='absolute top-0 left-0 w-full h-full bg-black opacity-50'></div>
+    <div
+      style={{
+        backgroundImage: `url(${imagePath + movie?.poster_path})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+        overflow: "hidden",
+      }}
+      className='w-[100vw] -ml-[2em]'
+    >
+      <div className='absolute top-0 left-0 w-full h-full bg-black opacity-50'></div>
 
       <div className='relative h-auto  w-[100vw]  duration-300'>
         <div className='px-6 py-6 h-fit w-full  block lg:flex justify-center items-center max-md:flex-wrap max-sm:flex-wrap inset-x-0 bottom-0 text-white '>
@@ -150,28 +158,31 @@ export default async function MovieDetails({ params }: { params: string }) {
                 </span>
               </div>
 
-               <div className=' mt-[10px] max-md:flex-wrap max-sm:flex-wrap px-2 py-2 border-b-2 border-slate-800 flex items-center justify-between'>
-                <span className='text-xs font-semibold mb-[10px]'>Popularity</span>
+              <div className=' mt-[10px] max-md:flex-wrap max-sm:flex-wrap px-2 py-2 border-b-2 border-slate-800 flex items-center justify-between'>
+                <span className='text-xs font-semibold mb-[10px]'>
+                  Popularity
+                </span>
                 <span className='font-normal text-xs mb-[10px]'>
-                {movie.popularity || <Skeleton />}
+                  {movie.popularity || <Skeleton />}
                 </span>
               </div>
 
-                <div className=' mt-[10px] max-md:flex-wrap max-sm:flex-wrap px-2 py-2 border-b-2 border-slate-800 flex items-center justify-between'>
+              <div className=' mt-[10px] max-md:flex-wrap max-sm:flex-wrap px-2 py-2 border-b-2 border-slate-800 flex items-center justify-between'>
                 <span className='text-xs font-semibold mb-[10px]'>Budget</span>
                 <span className='font-normal text-xs mb-[10px]'>
                   {formatter.format(movie.budget) || <Skeleton />}
                 </span>
               </div>
 
-               <div className=' mt-[10px] max-md:flex-wrap max-sm:flex-wrap px-2 py-2 border-b-2 border-slate-800 flex items-center justify-between'>
-                <span className='text-xs font-semibold mb-[10px]'>Box Office</span>
+              <div className=' mt-[10px] max-md:flex-wrap max-sm:flex-wrap px-2 py-2 border-b-2 border-slate-800 flex items-center justify-between'>
+                <span className='text-xs font-semibold mb-[10px]'>
+                  Box Office
+                </span>
                 <span className='font-normal text-xs mb-[10px]'>
                   {formatter.format(movie?.revenue) || <Skeleton />}
                 </span>
               </div>
             </div>
-            
           </div>
 
           <div className='cast w-fi px-4 py-4'>
@@ -203,7 +214,7 @@ export default async function MovieDetails({ params }: { params: string }) {
           </div>
         </div>
       </div>
-      <div className='w-fit mt-[20px]'>
+      <div className='w-fit px-[3em] mt-[20px]'>
         <CustomMoviesById movie_id={movie.id} />
       </div>
     </div>
