@@ -69,8 +69,8 @@ const Herosection = ({
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
               slidesPerView={1}
               autoplay={true}
-              onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
-              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={(swiper: any) => setCurrentSlide(swiper.realIndex)}
+              onSwiper={(swiper: any) => console.log(swiper)}
               className='w-auto'
             >
               {movie?.results
