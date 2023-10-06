@@ -58,7 +58,7 @@ const TopNav = () => {
   const length = bookmarkLength?.length as number;
 
   return (
-    <div className='w-full h-20 firefox:bg-opacity-90 bg-opacity-30 backdrop-filter backdrop-blur-lg bg-[#121212] px-4 py-6 flex items-center justify-between fixed z-40'>
+    <div className='w-full h-20 firefox:bg-opacity-90 bg-opacity-30 backdrop-filter backdrop-blur-lg bg-[#121212]  p-4 flex items-center justify-between fixed z-40'>
       <div className='text-white mb-6 flex items-center justify-center gap-2 h-4 mt-5'>
         <button
           data-cy='sidebar-toggle-button'
@@ -86,7 +86,7 @@ const TopNav = () => {
         </button>
         <Link href='/'>
           <button className='ml-[2em] max-sm:ml[5px] flex item-center gap-1'>
-            <SlideshowOutlinedIcon />
+            <SlideshowOutlinedIcon className="max-md:hidden max-sm:hidden"/>
             Movie<span className='text-orange-400 font-semibold'>Explore</span>
           </button>
         </Link>

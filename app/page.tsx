@@ -4,20 +4,15 @@ import axios from "axios";
 import MovieContainer from "./components/MovieCard";
 import ShowingInTheater from "./components/CustomMovieCard";
 import { useQuery } from "@tanstack/react-query";
-import { MovieDataProp } from "@/types/movie-type";
 import { useRouter } from "next/navigation";
-import 'nprogress/nprogress.css'; 
-import Image from "next/image";
-import Link from "next/link";
-import StarIcon from "@mui/icons-material/Star";
-
+import "nprogress/nprogress.css";
+import Herosection from "./components/HeroSection";
 
 const Home = () => {
   const myKey = process.env.NEXT_PUBLIC_API_KEY;
   const [currentPage, setCurrentPage] = useState<number>(2);
   const imagePath = "https://image.tmdb.org/t/p/original";
   const router = useRouter();
-
 
   const popularMoviesRecent = useQuery({
     queryKey: ["popularMovies"],
@@ -49,26 +44,35 @@ const Home = () => {
   });
 
   useEffect(() => {
-  function canCacheData(fetchStatus: any) {
-    return !fetchStatus.isFetching && fetchStatus.isSuccess;
-  }
-  if (
-    canCacheData(nowShowing) &&
-    canCacheData(popularMoviesRecent) &&
-    canCacheData(trendingMovies)
-  ) {
-    typeof window !== 'undefined' ? localStorage.setItem("nowShowing", JSON.stringify(nowShowing.data)) : "";
-    typeof window !== 'undefined' ? localStorage.setItem("popular", JSON.stringify(popularMoviesRecent.data)) : "";
-    typeof window !== 'undefined' ? localStorage.setItem("trending", JSON.stringify(trendingMovies.data)) : "";
-  }
+    function canCacheData(fetchStatus: any) {
+      return !fetchStatus.isFetching && fetchStatus.isSuccess;
+    }
+    if (
+      canCacheData(nowShowing) &&
+      canCacheData(popularMoviesRecent) &&
+      canCacheData(trendingMovies)
+    ) {
+      typeof window !== "undefined"
+        ? localStorage.setItem("nowShowing", JSON.stringify(nowShowing.data))
+        : "";
+      typeof window !== "undefined"
+        ? localStorage.setItem(
+            "popular",
+            JSON.stringify(popularMoviesRecent.data)
+          )
+        : "";
+      typeof window !== "undefined"
+        ? localStorage.setItem("trending", JSON.stringify(trendingMovies.data))
+        : "";
+    }
   }, [nowShowing, popularMoviesRecent, trendingMovies]);
 
   return (
     <main className=''>
-      <MovieContainer
-        text='Trending Movies'
+      <Herosection
         movie={trendingMovies.data}
         loading={trendingMovies.isLoading}
+        isError={trendingMovies.isError}
       />
       <ShowingInTheater
         movies={nowShowing.data}
