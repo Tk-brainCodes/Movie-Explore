@@ -209,7 +209,7 @@ export default async function MovieDetails({ params }: { params: string }) {
                   </span>
                 </div>
               ))
-              .slice(0, 4)}
+              }
           </div>
         </div>
       </div>

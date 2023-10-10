@@ -49,7 +49,7 @@ const Herosection = ({
       ) : (
         <Element
           name='hero'
-          className={`w-[100vw] -mt-[1.5em] -ml-[1em] flex flex-col overflow-x-hidden h-auto bg-cover bg-no-repeat relative`}
+          className={`w-[100vw] -mt-[1.5em] -ml-[1em] flex flex-col overflow-x-hidden h-[80vh] bg-cover bg-no-repeat relative`}
           style={{
             backgroundImage: `url(${
               imagePath + movie?.results[currentSlide]?.poster_path
@@ -61,9 +61,9 @@ const Herosection = ({
           data-testid='movie-poster'
         >
           <div
-            className='absolute  top-0 left-0 w-[100vw] h-full bg-black opacity-50'
+            className='absolute  top-0 left-0 w-auto h-full bg-black opacity-50'
             style={{ zIndex: 1 }}
-          ></div>
+          />
           <div className=' flex items-center  justify-between'>
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
@@ -82,7 +82,7 @@ const Herosection = ({
                         style={{ zIndex: 2 }}
                       >
                         <div
-                          className='w-[404px] h-auto text-white text-5xl font-bold leading-[56px]'
+                          className='w-[550px] h-auto text-white text-5xl font-bold leading-[56px]'
                           style={{ width: "404px", whiteSpace: "break-spaces" }}
                           data-testid='movie-title'
                         >
@@ -110,14 +110,13 @@ const Herosection = ({
                               alt='bg-image'
                             />
                             <div className='text-white text-xs font-normal leading-3'>
-                              97%
+                              {movie?.vote_average}
                             </div>
                           </div>
                         </div>
                         <div
-                          className='w-[302px] text-white text-sm font-medium leading-[18px] overflow-hidden'
+                          className='w-[550px] text-white text-sm font-medium leading-[18px] overflow-hidden'
                           style={{
-                            width: "302px",
                             height: "auto !important",
                             whiteSpace: "break-spaces",
                           }}
@@ -148,7 +147,7 @@ const Herosection = ({
             </Swiper>
 
             {/*Carousel buttons*/}
-            <div className='w-autoh-auto block mt-[3em]  z-10 mr-[2em]'>
+            <div className='w-autoh-auto block mt-[1em]  z-10 mr-[2em]'>
               {movie?.results
                 .map((_: any, index: number) => (
                   <>
