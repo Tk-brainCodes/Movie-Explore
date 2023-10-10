@@ -186,7 +186,7 @@ export default async function MovieDetails({ params }: { params: string }) {
 
           <div className='cast w-fi px-4 py-4'>
             <h3 className='text-white mb-[20px] text-xl font-semibold'>
-              Cast & Crew
+              Cast & Crew (Top 6)
             </h3>
             {movieCast.cast
               .map((cast: any) => (
@@ -209,7 +209,7 @@ export default async function MovieDetails({ params }: { params: string }) {
                   </span>
                 </div>
               ))
-              }
+              .slice(0, 6)}
           </div>
         </div>
       </div>

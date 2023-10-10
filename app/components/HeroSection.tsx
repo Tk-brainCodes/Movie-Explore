@@ -49,9 +49,9 @@ const Herosection = ({
       ) : (
         <Element
           name='hero'
-          className={`w-[100vw] -mt-[1.5em] -ml-[1em] flex flex-col overflow-x-hidden h-[80vh] bg-cover bg-no-repeat relative`}
+          className={`w-[100vw] -mt-[1.5em] -ml-[1em] flex flex-col overflow-x-hidden h-[90vh] bg-cover bg-no-repeat relative`}
           style={{
-            backgroundImage: `url(${
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${
               imagePath + movie?.results[currentSlide]?.poster_path
             })`,
             backgroundSize: "cover",
@@ -60,10 +60,6 @@ const Herosection = ({
           }}
           data-testid='movie-poster'
         >
-          <div
-            className='absolute  top-0 left-0 w-auto h-full bg-black opacity-50'
-            style={{ zIndex: 1 }}
-          />
           <div className=' flex items-center  justify-between'>
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
