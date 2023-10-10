@@ -49,7 +49,7 @@ const Herosection = ({
       ) : (
         <Element
           name='hero'
-          className={`w-[100vw] -mt-[1.5em] -ml-[1em] flex flex-col overflow-x-hidden h-[90vh] bg-cover bg-no-repeat relative`}
+          className={`w-[100vw] -mt-[1.5em] -ml-[1em] flex flex-col overflow-x-hidden h-auto bg-cover bg-no-repeat relative`}
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${
               imagePath + movie?.results[currentSlide]?.poster_path
