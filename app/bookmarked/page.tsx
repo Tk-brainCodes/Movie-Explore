@@ -3,16 +3,14 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { GlobalContext } from "../../context/Globalcontext";
 import Image from "next/image";
 import Link from "next/link";
-import LoadingSpiner from "../components/LoadingSpinner";
-import DeleteIcon from '@mui/icons-material/Delete';
+import LoadingSpiner from "../(components)/LoadingSpinner";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "react-loading-skeleton/dist/skeleton.css";
-import EmptyBookmark from "../components/EmptyBookmark";
+import EmptyBookmark from "../(components)/EmptyBookmark";
 
 const Bookmarked = () => {
   const [localStorageBookMarks, setLocalStorageBookmarks] = useState([]);
   const imagePath = "https://image.tmdb.org/t/p/original";
-
-
 
   const {
     // @ts-ignore
@@ -46,7 +44,6 @@ const Bookmarked = () => {
     removeMovieFromBookmarked(id);
   };
 
-
   return (
     <div className='px-6 py-6 w-[100vw]'>
       <h1 className='font-semibold mb-[20px] text-white'>My Bookmarks</h1>
@@ -59,8 +56,8 @@ const Bookmarked = () => {
           ) : (
             <div className='grid grid-cols-fluid gap-3 items-center max-sm:flex max-sm:justify-center max-sm:flex-col'>
               {localStorageBookMarks?.map((movie: any) => (
-              <Link href={`movies/${movie?.id}`}>
-                <div className='w-[250px]'>
+                <Link href={`movies/${movie?.id}`}>
+                  <div className='w-[250px]'>
                     <Image
                       src={imagePath + movie?.poster_path}
                       alt={`${movie?.title || ""}`}
@@ -71,24 +68,23 @@ const Bookmarked = () => {
                       blurDataURL={imagePath + movie?.poster_path}
                       placeholder='blur'
                     />
-                  <div className='flex gap-2 relative -mt-[20em] float-right px-2'>
-                    <button
-                      title='bookmark movie'
-                      className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
-                      onClick={() => handleRemoveBookmarks(movie?.id)}
-                    >
-                      <DeleteIcon className='text-red-500' />
-                    </button>
+                    <div className='flex gap-2 relative -mt-[20em] float-right px-2'>
+                      <button
+                        title='bookmark movie'
+                        className={`text-xs bg-white text-slate-500 px-3 py-3 hover:scale-110 transition ease-in-out rounded-full`}
+                        onClick={() => handleRemoveBookmarks(movie?.id)}
+                      >
+                        <DeleteIcon className='text-red-500' />
+                      </button>
+                    </div>
+                    <h1 className='mt-3 text-sm text-white font-semibold tracking-tight'>
+                      {movie?.title}
+                    </h1>
+                    <p className='text-slate-400 font-normal mt-1'>
+                      <span>{movie?.date?.substring(0, 4)}</span>
+                    </p>
                   </div>
-                  <h1 className='mt-3 text-sm text-white font-semibold tracking-tight'>
-                    {movie?.title}
-                  </h1>
-                  <p className='text-slate-400 font-normal mt-1'>
-                    <span>{movie?.date?.substring(0, 4)}</span>
-                  </p>
-                </div>
-       </Link>
-
+                </Link>
               ))}
             </div>
           )}

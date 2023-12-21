@@ -1,9 +1,9 @@
 "use client";
 import "./globals.css";
 import { Montserrat } from "@next/font/google";
-import Sidenav from "./components/Sidenav";
-import TopNav from "./components/Topnav";
-import Footer from "./components/Footer";
+import Sidenav from "./(components)/Sidenav";
+import TopNav from "./(components)/Topnav";
+import Footer from "./(components)/Footer";
 import QueryProvider from "./appContext";
 
 const monstserrat = Montserrat({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) { 
+}) {
   return (
     <html lang='en'>
       {/*
@@ -37,7 +37,7 @@ export default function RootLayout({
             <Sidenav />
             <div className={`px-4 py-4 mt-[5em]`}>{children}</div>
           </div>
-          <Footer/>
+          <Footer />
         </QueryProvider>
       </body>
     </html>

@@ -8,9 +8,9 @@ import {
   IconPointFilled,
 } from "@tabler/icons-react";
 import { Watch } from "@/app/(assets)";
-import { Anchor } from "@/app/components/Anchor";
+import { Anchor } from "@/app/(components)/Anchor";
 import { CountryProp } from "@/types/movie-type";
-import CustomMoviesById from "@/app/components/CustomMoviesById";
+import CustomMoviesById from "@/app/(components)/CustomMoviesById";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import imdb_logo from "../../../public/image/imdb_logo.png";

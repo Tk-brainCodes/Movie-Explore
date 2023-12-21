@@ -22,9 +22,9 @@ export default function CustomMovieCard({
         title === "Showing in theatres" ? "showing-in-theatres" : ""
       }`}
       name='theatres'
-      className='w-auto relative  max-sm:h-auto h-[82vh]'
+      className='w-auto relative  max-sm:h-auto h-auto mb-[20px]'
     >
-      <h1 className='flex  px-[3em] gap-4 items-center text-white text-sm  mt-[2em] font-semibold'>
+      <h1 className='flex  px-[2em] gap-4 items-center text-white text-sm  mt-[2em] font-semibold'>
         {title}
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
@@ -43,9 +43,9 @@ export default function CustomMovieCard({
         </button>
       </h1>
 
-      <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto scroll-smooth flex-row overflow-x-auto space-x-8 no-scrollbar h-[400px] w-[100vw]'>
+      <div className='flex px-6 py-4 snap-mandatory snap-x scroll-pr-6 touch-auto scroll-smooth flex-row overflow-x-auto space-x-8 no-scrollbar h-auto w-[100vw]'>
         {loading ? (
-          <div className="w-auto flex gap-3">
+          <div className='w-auto flex gap-3'>
             <SkeletonLoader />
             <SkeletonLoader />
           </div>

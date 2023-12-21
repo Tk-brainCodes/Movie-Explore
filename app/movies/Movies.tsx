@@ -8,9 +8,9 @@ import { getDocs, collection } from "firebase/firestore";
 import { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import ModalComponent from "../components/Modal";
+import ModalComponent from "../(components)/Modal";
 import Image from "next/image";
-import AnimatedPage from "@/app/components/Animation";
+import AnimatedPage from "@/app/(components)/Animation";
 import StarIcon from "@mui/icons-material/Star";
 
 const Movies = ({
@@ -90,7 +90,7 @@ const Movies = ({
   }, [exists, bookmarked, movieId, bookmarked]);
 
   return (
-    <div className='h-1/5'>
+    <div className='h-auto'>
       <Toaster />
       <AnimatedPage>
         <div className='relative hover:translate-y-1 w-[480px] max-sm:w-[350px] transition ease-in-out  hover:scale-110 duration-300 h-[280px]'>

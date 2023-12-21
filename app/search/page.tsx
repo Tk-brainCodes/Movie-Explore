@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { MovieCardProps } from "../../types/movie-type";
-import ResultCard from "../components/ResultCard"; 
+import ResultCard from "../(components)/ResultCard";
 import axios from "axios";
-import AnimatedPage from "@/app/components/Animation";
+import AnimatedPage from "@/app/(components)/Animation";
 
 export default function SearchMovies() {
   const [query, setQuery] = useState("");
@@ -14,7 +14,7 @@ export default function SearchMovies() {
     e.preventDefault();
 
     setQuery(e.target.value);
- 
+
     axios
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=${myKey}&language=en-US&page=1&include_adult=false&query=${e.target.value}`
@@ -68,9 +68,7 @@ export default function SearchMovies() {
           </div>
         ) : (
           <div className='block mt-[20px]'>
-            <h1 className='text-white font-light  text-sm'>
-              Start search
-            </h1>
+            <h1 className='text-white font-light  text-sm'>Start search</h1>
           </div>
         )}
       </AnimatedPage>

@@ -9,12 +9,10 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Link from "next/link";
 import axios from "axios";
-import LoadingSpiner from "@/app/components/LoadingSpinner";
+import LoadingSpiner from "@/app/(components)/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
-import AnimatedPage from "@/app/components/Animation";
+import AnimatedPage from "@/app/(components)/Animation";
 import StarIcon from "@mui/icons-material/Star";
-
-
 
 const MovieDetails = ({ params }: { params: string }) => {
   const { genreName, genreId }: any = params;

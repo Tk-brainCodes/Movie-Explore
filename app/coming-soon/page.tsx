@@ -6,11 +6,11 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import Movies from "../movies/Movies";
-import AnimatedPage from "@/app/components/Animation";
-import SkeletonLoader from "../components/SkeletonLoader";
+import AnimatedPage from "@/app/(components)/Animation";
+import SkeletonLoader from "../(components)/SkeletonLoader";
 
 export default function ComingSoon() {
-  const myKey = process.env.NEXT_PUBLIC_API_KEY; 
+  const myKey = process.env.NEXT_PUBLIC_API_KEY;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const router = useRouter();
 
@@ -26,8 +26,10 @@ export default function ComingSoon() {
   });
 
   useEffect(() => {
- if (!comingSoon.isFetching && comingSoon.isSuccess) {
-      typeof window !== 'undefined' ? localStorage.setItem('comingSoon', JSON.stringify(comingSoon.data)) : "";
+    if (!comingSoon.isFetching && comingSoon.isSuccess) {
+      typeof window !== "undefined"
+        ? localStorage.setItem("comingSoon", JSON.stringify(comingSoon.data))
+        : "";
     }
   }, []);
 
@@ -39,7 +41,10 @@ export default function ComingSoon() {
             onClick={() => router.back()}
             className='w-[30px] h-[30px] px-2 py-2 flex items-center justify-center bg-orange-400 rounded-full cursor-pointer text-white'
           >
-            <ArrowBackIosNewOutlinedIcon style={{fontSize: "16px"}} className='font-semibold' />
+            <ArrowBackIosNewOutlinedIcon
+              style={{ fontSize: "16px" }}
+              className='font-semibold'
+            />
           </button>
           Upcoming Movies
           <button
@@ -58,7 +63,7 @@ export default function ComingSoon() {
         <AnimatedPage>
           <div className='flex px-6 py-4 flex-row overflow-x-auto space-x-8 no-scrollbar h-[400px] w-screen'>
             {comingSoon.isLoading ? (
-             <SkeletonLoader/>
+              <SkeletonLoader />
             ) : (
               <>
                 {comingSoon?.data?.results?.map((movie: any) => (

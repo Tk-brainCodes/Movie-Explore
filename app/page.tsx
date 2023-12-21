@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import MovieContainer from "./components/MovieCard";
-import ShowingInTheater from "./components/CustomMovieCard";
+import MovieContainer from "./(components)/MovieCard";
+import ShowingInTheater from "./(components)/CustomMovieCard";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import "nprogress/nprogress.css";
-import Herosection from "./components/HeroSection";
+import Herosection from "./(components)/HeroSection";
 
 const Home = () => {
   const myKey = process.env.NEXT_PUBLIC_API_KEY;

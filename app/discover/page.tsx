@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ListProp } from "../../types/movie-type";
 import Link from "next/link";
-import LoadingSpiner from "../components/LoadingSpinner";
+import LoadingSpiner from "../(components)/LoadingSpinner";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
-import AnimatedPage from "@/app/components/Animation";
-import AddIcon from '@mui/icons-material/Add';
+import AnimatedPage from "@/app/(components)/Animation";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function Discover() {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function Discover() {
           className='w-[30px] h-[30px] px-2 py-2 flex items-center justify-center bg-orange-400 rounded-full cursor-pointer text-white'
         >
           <ArrowBackIosNewOutlinedIcon
-            style={{fontSize: "16px"}}
+            style={{ fontSize: "16px" }}
             className='font-semibold'
           />
         </button>

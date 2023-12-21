@@ -10,9 +10,9 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import { SelectedProp, ReviewProps } from "@/types/movie-type";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
-import LoadingSpiner from "@/app/components/LoadingSpinner";
-import AnimatedPage from "@/app/components/Animation";
-import NoReviews from "@/app/components/NoReviews";
+import LoadingSpiner from "@/app/(components)/LoadingSpinner";
+import AnimatedPage from "@/app/(components)/Animation";
+import NoReviews from "@/app/(components)/NoReviews";
 
 export default function ReviewPage({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
@@ -56,7 +56,7 @@ export default function ReviewPage({ params }: { params: string }) {
           className='w-[30px] h-[30px] px-2 py-2 flex items-center text-xs	 justify-center bg-orange-400 rounded-full cursor-pointer text-white'
         >
           <ArrowBackIosNewOutlinedIcon
-            style={{fontSize: "16px"}}
+            style={{ fontSize: "16px" }}
             className='font-semibold'
           />
         </button>
@@ -65,9 +65,7 @@ export default function ReviewPage({ params }: { params: string }) {
       <AnimatedPage>
         <div className='grid grid-cols-fluid gap-6 mt-[20px] items-center'>
           <>
-            {movierReview?.data?.results?.length === 0 && (
-              <NoReviews/>
-            )}
+            {movierReview?.data?.results?.length === 0 && <NoReviews />}
             {movierReview.isLoading ? (
               <LoadingSpiner text={"Reviews"} />
             ) : (

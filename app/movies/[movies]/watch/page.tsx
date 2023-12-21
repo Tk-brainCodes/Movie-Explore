@@ -8,8 +8,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { VideoProp } from "@/types/movie-type";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
-import AnimatedPage from "@/app/components/Animation";
-import NoVideos from "@/app/components/NoMovies";
+import AnimatedPage from "@/app/(components)/Animation";
+import NoVideos from "@/app/(components)/NoMovies";
 
 export default function WatchVideo({ params }: { params: string }) {
   const mykey = process.env.NEXT_PUBLIC_API_KEY;
@@ -45,18 +45,18 @@ export default function WatchVideo({ params }: { params: string }) {
             className='w-[30px] h-[30px] px-2 py-2 flex items-center justify-center bg-orange-400 rounded-full cursor-pointer text-white'
           >
             <ArrowBackIosNewOutlinedIcon
-              style={{fontSize: "16px"}}
+              style={{ fontSize: "16px" }}
               className='font-semibold'
             />
           </button>
           Videos
         </h1>
         <div className='w-fit px-2 py-2 '>
-          {movieVideo?.data?.length === 0 && <NoVideos/>}
+          {movieVideo?.data?.length === 0 && <NoVideos />}
           {movieVideo.isLoading ? (
             <div
               role='status'
-              className='flex items-center justify-center h-56 max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'
+              className='flex items-center w-[480px] h-[280px] justify-center max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'
             >
               <svg
                 className='w-12 h-12 text-gray-200 dark:text-gray-600'
